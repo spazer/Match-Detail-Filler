@@ -471,7 +471,7 @@
             this.Controls.Add(this.textBoxChar1_1);
             this.MinimumSize = new System.Drawing.Size(562, 450);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Bracket Match Filler";
             this.ResumeLayout(false);
             this.PerformLayout();
 

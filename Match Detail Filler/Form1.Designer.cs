@@ -29,36 +29,9 @@
         private void InitializeComponent()
         {
             this.textBoxMatch = new System.Windows.Forms.TextBox();
-            this.textBoxChar1_1 = new System.Windows.Forms.TextBox();
             this.buttonFill = new System.Windows.Forms.Button();
             this.richTextBoxOutput = new System.Windows.Forms.RichTextBox();
-            this.textBoxChar1_2 = new System.Windows.Forms.TextBox();
-            this.textBoxScore1_1 = new System.Windows.Forms.TextBox();
             this.buttonClear = new System.Windows.Forms.Button();
-            this.textBoxScore1_2 = new System.Windows.Forms.TextBox();
-            this.textBoxChar2_1 = new System.Windows.Forms.TextBox();
-            this.textBoxChar2_2 = new System.Windows.Forms.TextBox();
-            this.textBoxScore2_1 = new System.Windows.Forms.TextBox();
-            this.textBoxScore2_2 = new System.Windows.Forms.TextBox();
-            this.textBoxChar3_1 = new System.Windows.Forms.TextBox();
-            this.textBoxChar3_2 = new System.Windows.Forms.TextBox();
-            this.textBoxScore3_1 = new System.Windows.Forms.TextBox();
-            this.textBoxScore3_2 = new System.Windows.Forms.TextBox();
-            this.textBoxChar4_1 = new System.Windows.Forms.TextBox();
-            this.textBoxChar4_2 = new System.Windows.Forms.TextBox();
-            this.textBoxScore4_1 = new System.Windows.Forms.TextBox();
-            this.textBoxScore4_2 = new System.Windows.Forms.TextBox();
-            this.textBoxChar5_1 = new System.Windows.Forms.TextBox();
-            this.textBoxChar5_2 = new System.Windows.Forms.TextBox();
-            this.textBoxScore5_1 = new System.Windows.Forms.TextBox();
-            this.textBoxScore5_2 = new System.Windows.Forms.TextBox();
-            this.textBoxStage1 = new System.Windows.Forms.TextBox();
-            this.textBoxStage2 = new System.Windows.Forms.TextBox();
-            this.textBoxStage3 = new System.Windows.Forms.TextBox();
-            this.textBoxStage4 = new System.Windows.Forms.TextBox();
-            this.textBoxStage5 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -67,28 +40,40 @@
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxGame = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.buttonTrim = new System.Windows.Forms.Button();
+            this.tabControlType = new System.Windows.Forms.TabControl();
+            this.tabPageSingles = new System.Windows.Forms.TabPage();
+            this.tabPageDoubles = new System.Windows.Forms.TabPage();
+            this.textBoxHeaderP2 = new System.Windows.Forms.TextBox();
+            this.textBoxHeaderP1 = new System.Windows.Forms.TextBox();
+            this.textBoxHeaderT2P2 = new System.Windows.Forms.TextBox();
+            this.textBoxHeaderT2P1 = new System.Windows.Forms.TextBox();
+            this.textBoxHeaderT1P2 = new System.Windows.Forms.TextBox();
+            this.textBoxHeaderT1P1 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tabControlType.SuspendLayout();
+            this.tabPageSingles.SuspendLayout();
+            this.tabPageDoubles.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxMatch
             // 
-            this.textBoxMatch.Location = new System.Drawing.Point(15, 25);
+            this.textBoxMatch.Location = new System.Drawing.Point(15, 26);
             this.textBoxMatch.Name = "textBoxMatch";
             this.textBoxMatch.Size = new System.Drawing.Size(100, 20);
             this.textBoxMatch.TabIndex = 0;
             // 
-            // textBoxChar1_1
-            // 
-            this.textBoxChar1_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar1_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar1_1.Location = new System.Drawing.Point(15, 77);
-            this.textBoxChar1_1.Name = "textBoxChar1_1";
-            this.textBoxChar1_1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar1_1.TabIndex = 3;
-            // 
             // buttonFill
             // 
-            this.buttonFill.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFill.Location = new System.Drawing.Point(459, 421);
+            this.buttonFill.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFill.Location = new System.Drawing.Point(699, 370);
             this.buttonFill.Name = "buttonFill";
             this.buttonFill.Size = new System.Drawing.Size(75, 23);
             this.buttonFill.TabIndex = 99;
@@ -101,35 +86,18 @@
             this.richTextBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxOutput.Location = new System.Drawing.Point(15, 231);
+            this.richTextBoxOutput.Location = new System.Drawing.Point(15, 267);
             this.richTextBoxOutput.Name = "richTextBoxOutput";
             this.richTextBoxOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBoxOutput.Size = new System.Drawing.Size(438, 213);
+            this.richTextBoxOutput.Size = new System.Drawing.Size(678, 126);
             this.richTextBoxOutput.TabIndex = 99;
             this.richTextBoxOutput.Text = "";
             // 
-            // textBoxChar1_2
-            // 
-            this.textBoxChar1_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar1_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar1_2.Location = new System.Drawing.Point(121, 77);
-            this.textBoxChar1_2.Name = "textBoxChar1_2";
-            this.textBoxChar1_2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar1_2.TabIndex = 4;
-            // 
-            // textBoxScore1_1
-            // 
-            this.textBoxScore1_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore1_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore1_1.Location = new System.Drawing.Point(333, 77);
-            this.textBoxScore1_1.Name = "textBoxScore1_1";
-            this.textBoxScore1_1.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore1_1.TabIndex = 5;
-            // 
             // buttonClear
             // 
-            this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClear.Location = new System.Drawing.Point(459, 229);
+            this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClear.Location = new System.Drawing.Point(699, 267);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 99;
@@ -137,226 +105,10 @@
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
-            // textBoxScore1_2
-            // 
-            this.textBoxScore1_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore1_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore1_2.Location = new System.Drawing.Point(386, 77);
-            this.textBoxScore1_2.Name = "textBoxScore1_2";
-            this.textBoxScore1_2.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore1_2.TabIndex = 6;
-            // 
-            // textBoxChar2_1
-            // 
-            this.textBoxChar2_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar2_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar2_1.Location = new System.Drawing.Point(15, 103);
-            this.textBoxChar2_1.Name = "textBoxChar2_1";
-            this.textBoxChar2_1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar2_1.TabIndex = 7;
-            // 
-            // textBoxChar2_2
-            // 
-            this.textBoxChar2_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar2_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar2_2.Location = new System.Drawing.Point(121, 103);
-            this.textBoxChar2_2.Name = "textBoxChar2_2";
-            this.textBoxChar2_2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar2_2.TabIndex = 8;
-            // 
-            // textBoxScore2_1
-            // 
-            this.textBoxScore2_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore2_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore2_1.Location = new System.Drawing.Point(333, 103);
-            this.textBoxScore2_1.Name = "textBoxScore2_1";
-            this.textBoxScore2_1.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore2_1.TabIndex = 9;
-            // 
-            // textBoxScore2_2
-            // 
-            this.textBoxScore2_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore2_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore2_2.Location = new System.Drawing.Point(386, 103);
-            this.textBoxScore2_2.Name = "textBoxScore2_2";
-            this.textBoxScore2_2.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore2_2.TabIndex = 10;
-            // 
-            // textBoxChar3_1
-            // 
-            this.textBoxChar3_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar3_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar3_1.Location = new System.Drawing.Point(15, 129);
-            this.textBoxChar3_1.Name = "textBoxChar3_1";
-            this.textBoxChar3_1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar3_1.TabIndex = 11;
-            // 
-            // textBoxChar3_2
-            // 
-            this.textBoxChar3_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar3_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar3_2.Location = new System.Drawing.Point(121, 129);
-            this.textBoxChar3_2.Name = "textBoxChar3_2";
-            this.textBoxChar3_2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar3_2.TabIndex = 12;
-            // 
-            // textBoxScore3_1
-            // 
-            this.textBoxScore3_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore3_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore3_1.Location = new System.Drawing.Point(333, 129);
-            this.textBoxScore3_1.Name = "textBoxScore3_1";
-            this.textBoxScore3_1.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore3_1.TabIndex = 13;
-            // 
-            // textBoxScore3_2
-            // 
-            this.textBoxScore3_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore3_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore3_2.Location = new System.Drawing.Point(386, 129);
-            this.textBoxScore3_2.Name = "textBoxScore3_2";
-            this.textBoxScore3_2.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore3_2.TabIndex = 14;
-            // 
-            // textBoxChar4_1
-            // 
-            this.textBoxChar4_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar4_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar4_1.Location = new System.Drawing.Point(15, 155);
-            this.textBoxChar4_1.Name = "textBoxChar4_1";
-            this.textBoxChar4_1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar4_1.TabIndex = 15;
-            // 
-            // textBoxChar4_2
-            // 
-            this.textBoxChar4_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar4_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar4_2.Location = new System.Drawing.Point(121, 155);
-            this.textBoxChar4_2.Name = "textBoxChar4_2";
-            this.textBoxChar4_2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar4_2.TabIndex = 16;
-            // 
-            // textBoxScore4_1
-            // 
-            this.textBoxScore4_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore4_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore4_1.Location = new System.Drawing.Point(333, 155);
-            this.textBoxScore4_1.Name = "textBoxScore4_1";
-            this.textBoxScore4_1.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore4_1.TabIndex = 17;
-            // 
-            // textBoxScore4_2
-            // 
-            this.textBoxScore4_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore4_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore4_2.Location = new System.Drawing.Point(386, 155);
-            this.textBoxScore4_2.Name = "textBoxScore4_2";
-            this.textBoxScore4_2.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore4_2.TabIndex = 18;
-            // 
-            // textBoxChar5_1
-            // 
-            this.textBoxChar5_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar5_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar5_1.Location = new System.Drawing.Point(15, 181);
-            this.textBoxChar5_1.Name = "textBoxChar5_1";
-            this.textBoxChar5_1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar5_1.TabIndex = 19;
-            // 
-            // textBoxChar5_2
-            // 
-            this.textBoxChar5_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxChar5_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxChar5_2.Location = new System.Drawing.Point(121, 181);
-            this.textBoxChar5_2.Name = "textBoxChar5_2";
-            this.textBoxChar5_2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxChar5_2.TabIndex = 20;
-            // 
-            // textBoxScore5_1
-            // 
-            this.textBoxScore5_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore5_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore5_1.Location = new System.Drawing.Point(333, 181);
-            this.textBoxScore5_1.Name = "textBoxScore5_1";
-            this.textBoxScore5_1.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore5_1.TabIndex = 21;
-            // 
-            // textBoxScore5_2
-            // 
-            this.textBoxScore5_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxScore5_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxScore5_2.Location = new System.Drawing.Point(386, 181);
-            this.textBoxScore5_2.Name = "textBoxScore5_2";
-            this.textBoxScore5_2.Size = new System.Drawing.Size(47, 20);
-            this.textBoxScore5_2.TabIndex = 22;
-            // 
-            // textBoxStage1
-            // 
-            this.textBoxStage1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxStage1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxStage1.Location = new System.Drawing.Point(227, 77);
-            this.textBoxStage1.Name = "textBoxStage1";
-            this.textBoxStage1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxStage1.TabIndex = 4;
-            // 
-            // textBoxStage2
-            // 
-            this.textBoxStage2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxStage2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxStage2.Location = new System.Drawing.Point(227, 103);
-            this.textBoxStage2.Name = "textBoxStage2";
-            this.textBoxStage2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxStage2.TabIndex = 4;
-            // 
-            // textBoxStage3
-            // 
-            this.textBoxStage3.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxStage3.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxStage3.Location = new System.Drawing.Point(227, 129);
-            this.textBoxStage3.Name = "textBoxStage3";
-            this.textBoxStage3.Size = new System.Drawing.Size(100, 20);
-            this.textBoxStage3.TabIndex = 4;
-            // 
-            // textBoxStage4
-            // 
-            this.textBoxStage4.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxStage4.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxStage4.Location = new System.Drawing.Point(227, 155);
-            this.textBoxStage4.Name = "textBoxStage4";
-            this.textBoxStage4.Size = new System.Drawing.Size(100, 20);
-            this.textBoxStage4.TabIndex = 4;
-            // 
-            // textBoxStage5
-            // 
-            this.textBoxStage5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.textBoxStage5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxStage5.Location = new System.Drawing.Point(227, 181);
-            this.textBoxStage5.Name = "textBoxStage5";
-            this.textBoxStage5.Size = new System.Drawing.Size(100, 20);
-            this.textBoxStage5.TabIndex = 4;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 58);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 13);
-            this.label1.TabIndex = 100;
-            this.label1.Text = "P1";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(118, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 13);
-            this.label2.TabIndex = 100;
-            this.label2.Text = "P2";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(224, 58);
+            this.label3.Location = new System.Drawing.Point(215, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 100;
@@ -365,7 +117,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(330, 58);
+            this.label4.Location = new System.Drawing.Point(321, 13);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 100;
@@ -374,7 +126,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(383, 58);
+            this.label5.Location = new System.Drawing.Point(374, 13);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 100;
@@ -382,15 +134,15 @@
             // 
             // textBoxYoutube
             // 
-            this.textBoxYoutube.Location = new System.Drawing.Point(121, 25);
+            this.textBoxYoutube.Location = new System.Drawing.Point(121, 26);
             this.textBoxYoutube.Name = "textBoxYoutube";
-            this.textBoxYoutube.Size = new System.Drawing.Size(413, 20);
+            this.textBoxYoutube.Size = new System.Drawing.Size(312, 20);
             this.textBoxYoutube.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 9);
+            this.label6.Location = new System.Drawing.Point(12, 10);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(39, 13);
             this.label6.TabIndex = 100;
@@ -399,7 +151,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(118, 9);
+            this.label7.Location = new System.Drawing.Point(118, 10);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 13);
             this.label7.TabIndex = 100;
@@ -407,9 +159,10 @@
             // 
             // comboBoxGame
             // 
-            this.comboBoxGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxGame.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxGame.FormattingEnabled = true;
-            this.comboBoxGame.Location = new System.Drawing.Point(459, 382);
+            this.comboBoxGame.Location = new System.Drawing.Point(699, 331);
             this.comboBoxGame.Name = "comboBoxGame";
             this.comboBoxGame.Size = new System.Drawing.Size(75, 21);
             this.comboBoxGame.TabIndex = 101;
@@ -417,61 +170,203 @@
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(459, 366);
+            this.label8.Location = new System.Drawing.Point(699, 315);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 100;
             this.label8.Text = "Game";
             // 
+            // buttonTrim
+            // 
+            this.buttonTrim.Location = new System.Drawing.Point(439, 24);
+            this.buttonTrim.Name = "buttonTrim";
+            this.buttonTrim.Size = new System.Drawing.Size(75, 23);
+            this.buttonTrim.TabIndex = 102;
+            this.buttonTrim.Text = "Trim URL";
+            this.buttonTrim.UseVisualStyleBackColor = true;
+            this.buttonTrim.Click += new System.EventHandler(this.buttonTrim_Click);
+            // 
+            // tabControlType
+            // 
+            this.tabControlType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlType.Controls.Add(this.tabPageSingles);
+            this.tabControlType.Controls.Add(this.tabPageDoubles);
+            this.tabControlType.Location = new System.Drawing.Point(15, 71);
+            this.tabControlType.Name = "tabControlType";
+            this.tabControlType.SelectedIndex = 0;
+            this.tabControlType.Size = new System.Drawing.Size(759, 190);
+            this.tabControlType.TabIndex = 103;
+            this.tabControlType.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
+            // 
+            // tabPageSingles
+            // 
+            this.tabPageSingles.Controls.Add(this.textBoxHeaderP2);
+            this.tabPageSingles.Controls.Add(this.textBoxHeaderP1);
+            this.tabPageSingles.Controls.Add(this.label5);
+            this.tabPageSingles.Controls.Add(this.label4);
+            this.tabPageSingles.Controls.Add(this.label3);
+            this.tabPageSingles.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSingles.Name = "tabPageSingles";
+            this.tabPageSingles.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSingles.Size = new System.Drawing.Size(751, 164);
+            this.tabPageSingles.TabIndex = 0;
+            this.tabPageSingles.Text = "Singles";
+            this.tabPageSingles.UseVisualStyleBackColor = true;
+            // 
+            // tabPageDoubles
+            // 
+            this.tabPageDoubles.Controls.Add(this.textBoxHeaderT2P2);
+            this.tabPageDoubles.Controls.Add(this.textBoxHeaderT2P1);
+            this.tabPageDoubles.Controls.Add(this.textBoxHeaderT1P2);
+            this.tabPageDoubles.Controls.Add(this.textBoxHeaderT1P1);
+            this.tabPageDoubles.Controls.Add(this.label11);
+            this.tabPageDoubles.Controls.Add(this.label1);
+            this.tabPageDoubles.Controls.Add(this.label10);
+            this.tabPageDoubles.Controls.Add(this.label2);
+            this.tabPageDoubles.Controls.Add(this.label9);
+            this.tabPageDoubles.Controls.Add(this.label13);
+            this.tabPageDoubles.Controls.Add(this.label12);
+            this.tabPageDoubles.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDoubles.Name = "tabPageDoubles";
+            this.tabPageDoubles.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDoubles.Size = new System.Drawing.Size(751, 164);
+            this.tabPageDoubles.TabIndex = 1;
+            this.tabPageDoubles.Text = "Doubles";
+            this.tabPageDoubles.UseVisualStyleBackColor = true;
+            // 
+            // textBoxHeaderP2
+            // 
+            this.textBoxHeaderP2.Location = new System.Drawing.Point(112, 6);
+            this.textBoxHeaderP2.Name = "textBoxHeaderP2";
+            this.textBoxHeaderP2.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHeaderP2.TabIndex = 105;
+            // 
+            // textBoxHeaderP1
+            // 
+            this.textBoxHeaderP1.Location = new System.Drawing.Point(6, 6);
+            this.textBoxHeaderP1.Name = "textBoxHeaderP1";
+            this.textBoxHeaderP1.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHeaderP1.TabIndex = 104;
+            // 
+            // textBoxHeaderT2P2
+            // 
+            this.textBoxHeaderT2P2.Location = new System.Drawing.Point(324, 6);
+            this.textBoxHeaderT2P2.Name = "textBoxHeaderT2P2";
+            this.textBoxHeaderT2P2.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHeaderT2P2.TabIndex = 115;
+            // 
+            // textBoxHeaderT2P1
+            // 
+            this.textBoxHeaderT2P1.Location = new System.Drawing.Point(218, 6);
+            this.textBoxHeaderT2P1.Name = "textBoxHeaderT2P1";
+            this.textBoxHeaderT2P1.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHeaderT2P1.TabIndex = 105;
+            // 
+            // textBoxHeaderT1P2
+            // 
+            this.textBoxHeaderT1P2.Location = new System.Drawing.Point(112, 6);
+            this.textBoxHeaderT1P2.Name = "textBoxHeaderT1P2";
+            this.textBoxHeaderT1P2.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHeaderT1P2.TabIndex = 103;
+            // 
+            // textBoxHeaderT1P1
+            // 
+            this.textBoxHeaderT1P1.Location = new System.Drawing.Point(6, 6);
+            this.textBoxHeaderT1P1.Name = "textBoxHeaderT1P1";
+            this.textBoxHeaderT1P1.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHeaderT1P1.TabIndex = 101;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(691, 13);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(54, 13);
+            this.label11.TabIndex = 155;
+            this.label11.Text = "P2 stocks";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(586, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 150;
+            this.label1.Text = "P2 stocks";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(638, 13);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 13);
+            this.label10.TabIndex = 151;
+            this.label10.Text = "P1 stocks";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(533, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 156;
+            this.label2.Text = "P1 stocks";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(427, 13);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 13);
+            this.label9.TabIndex = 152;
+            this.label9.Text = "Stage";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(669, 1);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(43, 13);
+            this.label13.TabIndex = 153;
+            this.label13.Text = "Team 2";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(565, 1);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(43, 13);
+            this.label12.TabIndex = 154;
+            this.label12.Text = "Team 1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 465);
+            this.ClientSize = new System.Drawing.Size(786, 411);
+            this.Controls.Add(this.buttonTrim);
             this.Controls.Add(this.comboBoxGame);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.richTextBoxOutput);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonFill);
             this.Controls.Add(this.textBoxYoutube);
             this.Controls.Add(this.textBoxMatch);
-            this.Controls.Add(this.textBoxScore5_2);
-            this.Controls.Add(this.textBoxScore4_2);
-            this.Controls.Add(this.textBoxScore3_2);
-            this.Controls.Add(this.textBoxScore2_2);
-            this.Controls.Add(this.textBoxScore1_2);
-            this.Controls.Add(this.textBoxScore5_1);
-            this.Controls.Add(this.textBoxScore4_1);
-            this.Controls.Add(this.textBoxScore3_1);
-            this.Controls.Add(this.textBoxScore2_1);
-            this.Controls.Add(this.textBoxScore1_1);
-            this.Controls.Add(this.textBoxChar5_2);
-            this.Controls.Add(this.textBoxChar4_2);
-            this.Controls.Add(this.textBoxChar3_2);
-            this.Controls.Add(this.textBoxChar2_2);
-            this.Controls.Add(this.textBoxStage5);
-            this.Controls.Add(this.textBoxStage4);
-            this.Controls.Add(this.textBoxStage3);
-            this.Controls.Add(this.textBoxStage2);
-            this.Controls.Add(this.textBoxStage1);
-            this.Controls.Add(this.textBoxChar1_2);
-            this.Controls.Add(this.textBoxChar5_1);
-            this.Controls.Add(this.textBoxChar4_1);
-            this.Controls.Add(this.textBoxChar3_1);
-            this.Controls.Add(this.textBoxChar2_1);
-            this.Controls.Add(this.textBoxChar1_1);
+            this.Controls.Add(this.tabControlType);
             this.MinimumSize = new System.Drawing.Size(562, 450);
             this.Name = "Form1";
             this.Text = "Bracket Match Filler";
+            this.tabControlType.ResumeLayout(false);
+            this.tabPageSingles.ResumeLayout(false);
+            this.tabPageSingles.PerformLayout();
+            this.tabPageDoubles.ResumeLayout(false);
+            this.tabPageDoubles.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,36 +374,9 @@
 
         #endregion
         private System.Windows.Forms.TextBox textBoxMatch;
-        private System.Windows.Forms.TextBox textBoxChar1_1;
         private System.Windows.Forms.Button buttonFill;
         private System.Windows.Forms.RichTextBox richTextBoxOutput;
-        private System.Windows.Forms.TextBox textBoxChar1_2;
-        private System.Windows.Forms.TextBox textBoxScore1_1;
         private System.Windows.Forms.Button buttonClear;
-        private System.Windows.Forms.TextBox textBoxScore1_2;
-        private System.Windows.Forms.TextBox textBoxChar2_1;
-        private System.Windows.Forms.TextBox textBoxChar2_2;
-        private System.Windows.Forms.TextBox textBoxScore2_1;
-        private System.Windows.Forms.TextBox textBoxScore2_2;
-        private System.Windows.Forms.TextBox textBoxChar3_1;
-        private System.Windows.Forms.TextBox textBoxChar3_2;
-        private System.Windows.Forms.TextBox textBoxScore3_1;
-        private System.Windows.Forms.TextBox textBoxScore3_2;
-        private System.Windows.Forms.TextBox textBoxChar4_1;
-        private System.Windows.Forms.TextBox textBoxChar4_2;
-        private System.Windows.Forms.TextBox textBoxScore4_1;
-        private System.Windows.Forms.TextBox textBoxScore4_2;
-        private System.Windows.Forms.TextBox textBoxChar5_1;
-        private System.Windows.Forms.TextBox textBoxChar5_2;
-        private System.Windows.Forms.TextBox textBoxScore5_1;
-        private System.Windows.Forms.TextBox textBoxScore5_2;
-        private System.Windows.Forms.TextBox textBoxStage1;
-        private System.Windows.Forms.TextBox textBoxStage2;
-        private System.Windows.Forms.TextBox textBoxStage3;
-        private System.Windows.Forms.TextBox textBoxStage4;
-        private System.Windows.Forms.TextBox textBoxStage5;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -517,6 +385,23 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBoxGame;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button buttonTrim;
+        private System.Windows.Forms.TabControl tabControlType;
+        private System.Windows.Forms.TabPage tabPageSingles;
+        private System.Windows.Forms.TextBox textBoxHeaderP2;
+        private System.Windows.Forms.TextBox textBoxHeaderP1;
+        private System.Windows.Forms.TabPage tabPageDoubles;
+        private System.Windows.Forms.TextBox textBoxHeaderT2P2;
+        private System.Windows.Forms.TextBox textBoxHeaderT2P1;
+        private System.Windows.Forms.TextBox textBoxHeaderT1P2;
+        private System.Windows.Forms.TextBox textBoxHeaderT1P1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
     }
 }
 

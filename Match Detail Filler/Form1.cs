@@ -31,6 +31,7 @@ namespace Match_Detail_Filler
         static int SINGLES_HEIGHT = 5;
         static int DOUBLES_WIDTH = 9;
         static int DOUBLES_HEIGHT = 5;
+        static int TAB_NUMBER = 6;
 
         enum SinglesField { p1char, p2char, stage, p1score, p2score }
 
@@ -82,20 +83,6 @@ namespace Match_Detail_Filler
 
             tabControl_SelectedIndexChanged(tabControlType, new EventArgs());
             comboBoxGame.SelectedItem = "Melee";
-
-            //int tabNumber = 6;
-            //foreach (TextBox[] match in matchList)
-            //{
-            //    for (int i = 0; i < 5; i++) 
-            //    {
-            //        match[i].TabIndex = tabNumber;
-            //        tabNumber++;
-            //    }
-
-            //    match[(int)SinglesField.p1char].Leave += new EventHandler(textBoxChar_Leave);
-            //    match[(int)SinglesField.p2char].Leave += new EventHandler(textBoxChar_Leave);
-            //    match[(int)SinglesField.stage].Leave += new EventHandler(textBoxStage_Leave);
-            //}
         }
 
         private void buttonFill_Click(object sender, EventArgs e)
@@ -105,29 +92,67 @@ namespace Match_Detail_Filler
 
             foreach (TextBox[] match in matchList)
             {
-                if (match[(int)SinglesField.stage].Text != string.Empty)
+                if (tabControlType.SelectedTab.Text == "Singles")
                 {
-                    output += "|" + textBoxMatch.Text + "p1char" + matchNumber + "=" + match[0].Text + " ";
-                    output += "|" + textBoxMatch.Text + "p2char" + matchNumber + "=" + match[1].Text + " ";
-                    output += "|" + textBoxMatch.Text + "p1stock" + matchNumber + "=" + match[3].Text + " ";
-                    output += "|" + textBoxMatch.Text + "p2stock" + matchNumber + "=" + match[4].Text + " ";
-
-                    if (match[(int)SinglesField.p1score].Text != string.Empty && match[(int)SinglesField.p2score].Text != string.Empty)
+                    if (match[(int)SinglesField.stage].Text != string.Empty)
                     {
-                        if (int.Parse(match[(int)SinglesField.p1score].Text) > int.Parse(match[(int)SinglesField.p2score].Text))
+                        output += "|" + textBoxMatch.Text + "p1char" + matchNumber + "=" + match[(int)SinglesField.p1char].Text + " ";
+                        output += "|" + textBoxMatch.Text + "p2char" + matchNumber + "=" + match[(int)SinglesField.p2char].Text + " ";
+                        output += "|" + textBoxMatch.Text + "p1stock" + matchNumber + "=" + match[(int)SinglesField.p1score].Text + " ";
+                        output += "|" + textBoxMatch.Text + "p2stock" + matchNumber + "=" + match[(int)SinglesField.p2score].Text + " ";
+
+                        if (match[(int)SinglesField.p1score].Text != string.Empty && match[(int)SinglesField.p2score].Text != string.Empty)
                         {
-                            output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                            if (int.Parse(match[(int)SinglesField.p1score].Text) > int.Parse(match[(int)SinglesField.p2score].Text))
+                            {
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                            }
+                            else
+                            {
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                            }
                         }
                         else
                         {
-                            output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                            output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
                         }
+                        output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)SinglesField.stage].Text + "\r\n";
                     }
-                    else
+                }
+                else
+                {
+                    if (match[(int)DoublesField.stage].Text != string.Empty)
                     {
-                        output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
+                        output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
+
+                        output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+
+
+                        if (match[(int)DoublesField.t1p1score].Text != string.Empty && match[(int)DoublesField.t1p2score].Text != string.Empty &&
+                            match[(int)DoublesField.t2p1score].Text != string.Empty && match[(int)DoublesField.t2p2score].Text != string.Empty)
+                        {
+                            if (int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t1p2score].Text) > 0)
+                            {
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                            }
+                            else
+                            {
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                            }
+                        }
+                        else
+                        {
+                            output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
+                        }
+
+                        output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)DoublesField.stage].Text + "\r\n";
                     }
-                    output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)SinglesField.stage].Text + "\r\n";
                 }
 
                 matchNumber++;
@@ -337,7 +362,7 @@ namespace Match_Detail_Filler
                 {
                     TextBox[] newTextBoxArray = new TextBox[SINGLES_WIDTH];
                     int lastLeft = 0;
-                    for (int j = 0; j < SINGLES_WIDTH; j++) 
+                    for (int j = 0; j < SINGLES_WIDTH; j++)
                     {
                         TextBox newTextBox = new TextBox();
 
@@ -347,7 +372,12 @@ namespace Match_Detail_Filler
                             if (i == 0)
                             {
                                 newTextBox.Leave += new EventHandler(textBoxChar_Leave);
-                            } 
+                            }
+                        }
+
+                        if (j == (int)SinglesField.stage)
+                        {
+                            newTextBox.Leave += new EventHandler(textBoxStage_Leave);
                         }
 
                         if (j == (int)SinglesField.p1score || j == (int)SinglesField.p2score)
@@ -360,7 +390,7 @@ namespace Match_Detail_Filler
                             newTextBox.Width = 100;
                             newTextBox.Left = lastLeft + 6;
                         }
-                        
+
                         newTextBox.Height = 20;
                         newTextBox.Top = 32 + 26 * i;
 
@@ -371,6 +401,16 @@ namespace Match_Detail_Filler
                     }
 
                     matchList.Add(newTextBoxArray);
+                }
+
+                int tabNumber = TAB_NUMBER;
+                foreach (TextBox[] match in matchList)
+                {
+                    for (int i = 0; i < SINGLES_WIDTH; i++)
+                    {
+                        match[i].TabIndex = tabNumber;
+                        tabNumber++;
+                    }
                 }
             }
             else
@@ -395,6 +435,11 @@ namespace Match_Detail_Filler
                             }
                         }
 
+                        if (j == (int)DoublesField.stage)
+                        {
+                            newTextBox.Leave += new EventHandler(textBoxStage_Leave);
+                        }
+
                         if (j == (int)DoublesField.t1p1score || j == (int)DoublesField.t1p2score || j == (int)DoublesField.t2p1score || j == (int)DoublesField.t2p2score)
                         {
                             newTextBox.Width = 47;
@@ -416,6 +461,16 @@ namespace Match_Detail_Filler
                     }
 
                     matchList.Add(newTextBoxArray);
+                }
+
+                int tabNumber = TAB_NUMBER;
+                foreach (TextBox[] match in matchList)
+                {
+                    for (int i = 0; i < DOUBLES_WIDTH; i++)
+                    {
+                        match[i].TabIndex = tabNumber;
+                        tabNumber++;
+                    }
                 }
             }
 

@@ -43,9 +43,9 @@
             this.buttonTrim = new System.Windows.Forms.Button();
             this.tabControlType = new System.Windows.Forms.TabControl();
             this.tabPageSingles = new System.Windows.Forms.TabPage();
-            this.tabPageDoubles = new System.Windows.Forms.TabPage();
             this.textBoxHeaderP2 = new System.Windows.Forms.TextBox();
             this.textBoxHeaderP1 = new System.Windows.Forms.TextBox();
+            this.tabPageDoubles = new System.Windows.Forms.TabPage();
             this.textBoxHeaderT2P2 = new System.Windows.Forms.TextBox();
             this.textBoxHeaderT2P1 = new System.Windows.Forms.TextBox();
             this.textBoxHeaderT1P2 = new System.Windows.Forms.TextBox();
@@ -199,7 +199,7 @@
             this.tabControlType.Name = "tabControlType";
             this.tabControlType.SelectedIndex = 0;
             this.tabControlType.Size = new System.Drawing.Size(759, 190);
-            this.tabControlType.TabIndex = 103;
+            this.tabControlType.TabIndex = 98;
             this.tabControlType.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
             // tabPageSingles
@@ -216,6 +216,20 @@
             this.tabPageSingles.TabIndex = 0;
             this.tabPageSingles.Text = "Singles";
             this.tabPageSingles.UseVisualStyleBackColor = true;
+            // 
+            // textBoxHeaderP2
+            // 
+            this.textBoxHeaderP2.Location = new System.Drawing.Point(112, 6);
+            this.textBoxHeaderP2.Name = "textBoxHeaderP2";
+            this.textBoxHeaderP2.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHeaderP2.TabIndex = 3;
+            // 
+            // textBoxHeaderP1
+            // 
+            this.textBoxHeaderP1.Location = new System.Drawing.Point(6, 6);
+            this.textBoxHeaderP1.Name = "textBoxHeaderP1";
+            this.textBoxHeaderP1.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHeaderP1.TabIndex = 2;
             // 
             // tabPageDoubles
             // 
@@ -238,47 +252,33 @@
             this.tabPageDoubles.Text = "Doubles";
             this.tabPageDoubles.UseVisualStyleBackColor = true;
             // 
-            // textBoxHeaderP2
-            // 
-            this.textBoxHeaderP2.Location = new System.Drawing.Point(112, 6);
-            this.textBoxHeaderP2.Name = "textBoxHeaderP2";
-            this.textBoxHeaderP2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeaderP2.TabIndex = 105;
-            // 
-            // textBoxHeaderP1
-            // 
-            this.textBoxHeaderP1.Location = new System.Drawing.Point(6, 6);
-            this.textBoxHeaderP1.Name = "textBoxHeaderP1";
-            this.textBoxHeaderP1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeaderP1.TabIndex = 104;
-            // 
             // textBoxHeaderT2P2
             // 
             this.textBoxHeaderT2P2.Location = new System.Drawing.Point(324, 6);
             this.textBoxHeaderT2P2.Name = "textBoxHeaderT2P2";
             this.textBoxHeaderT2P2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeaderT2P2.TabIndex = 115;
+            this.textBoxHeaderT2P2.TabIndex = 5;
             // 
             // textBoxHeaderT2P1
             // 
             this.textBoxHeaderT2P1.Location = new System.Drawing.Point(218, 6);
             this.textBoxHeaderT2P1.Name = "textBoxHeaderT2P1";
             this.textBoxHeaderT2P1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeaderT2P1.TabIndex = 105;
+            this.textBoxHeaderT2P1.TabIndex = 4;
             // 
             // textBoxHeaderT1P2
             // 
             this.textBoxHeaderT1P2.Location = new System.Drawing.Point(112, 6);
             this.textBoxHeaderT1P2.Name = "textBoxHeaderT1P2";
             this.textBoxHeaderT1P2.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeaderT1P2.TabIndex = 103;
+            this.textBoxHeaderT1P2.TabIndex = 3;
             // 
             // textBoxHeaderT1P1
             // 
             this.textBoxHeaderT1P1.Location = new System.Drawing.Point(6, 6);
             this.textBoxHeaderT1P1.Name = "textBoxHeaderT1P1";
             this.textBoxHeaderT1P1.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHeaderT1P1.TabIndex = 101;
+            this.textBoxHeaderT1P1.TabIndex = 2;
             // 
             // label11
             // 

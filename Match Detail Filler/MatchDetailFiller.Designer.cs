@@ -1,6 +1,6 @@
 ﻿namespace Match_Detail_Filler
 {
-    partial class Form1
+    partial class MatchDetailFiller
     {
         /// <summary>
         /// Required designer variable.

@@ -11,8 +11,9 @@ using System.Windows.Forms;
 
 namespace Match_Detail_Filler
 {
-    public partial class Form1 : Form
+    public partial class MatchDetailFiller : Form
     {
+        // Liquipedia parameters
         static string PLAYER1 = "p1";
         static string PLAYER2 = "p2";
         static string STOCK = "stock";
@@ -20,6 +21,7 @@ namespace Match_Detail_Filler
         static string WIN = "win";
         static string DETAILS = "details={{BracketMatchDetails|preview=|lrthread=|interview=|recap=|comment=|live=|vod=";
 
+        // Cue banner text
         static string DEFAULT_HEADER_T1P1 = "Team 1 P1";
         static string DEFAULT_HEADER_T1P2 = "Team 1 P2";
         static string DEFAULT_HEADER_T2P1 = "Team 2 P1";
@@ -27,14 +29,13 @@ namespace Match_Detail_Filler
         static string DEFAULT_HEADER_P1 = "Player 1";
         static string DEFAULT_HEADER_P2 = "Player 2";
 
-        static int SINGLES_WIDTH = 5;
-        static int SINGLES_HEIGHT = 5;
-        static int DOUBLES_WIDTH = 9;
-        static int DOUBLES_HEIGHT = 5;
-        static int TAB_NUMBER = 6;
+        static int SINGLES_WIDTH = 5;   // Number of textboxes in a row for the singles tab
+        static int SINGLES_HEIGHT = 5;  // Number of textboxes in a column for the singles tab
+        static int DOUBLES_WIDTH = 9;   // Number of textboxes in a row for the doubles tab
+        static int DOUBLES_HEIGHT = 5;  // Number of textboxes in a column for the doubles tab
+        static int TAB_NUMBER = 6;      // Where the generated textboxes' tab index should start being numbered from
 
         enum SinglesField { p1char, p2char, stage, p1score, p2score }
-
         enum DoublesField { t1p1char, t1p2char, t2p1char, t2p2char, stage, t1p1score, t1p2score, t2p1score, t2p2score }
 
         AutoCompleteStringCollection meleeCharacterAutoCompleteList;
@@ -44,9 +45,10 @@ namespace Match_Detail_Filler
         AutoCompleteStringCollection wiiuCharacterAutoCompleteList;
         AutoCompleteStringCollection wiiuStageAutoComplete;
 
+        // A "matrix" of all generated textboxes in the tab control
         List<TextBox[]> matchList = new List<TextBox[]>();
 
-        public Form1()
+        public MatchDetailFiller()
         {
             InitializeComponent();
 
@@ -58,11 +60,13 @@ namespace Match_Detail_Filler
             SetCueText(textBoxHeaderP1, DEFAULT_HEADER_P1);
             SetCueText(textBoxHeaderP2, DEFAULT_HEADER_P2);
 
+            // Initialize the combobox for game selection
             comboBoxGame.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxGame.Items.Add("Melee");
             comboBoxGame.Items.Add("Wii U");
             comboBoxGame.Items.Add("64");
 
+            // Create character and stage autocompletes for all games
             meleeCharacterAutoCompleteList = new AutoCompleteStringCollection();
             meleeCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk","link","samus","kirby","fox","pikachu","jigglypuff","cf","ness","peach","bowser","doc","zelda","sheik","ganon","ylink","falco","mewtwo","pichu","ic","game and watch","marth","roy"});
 
@@ -81,10 +85,15 @@ namespace Match_Detail_Filler
             wiiuStageAutoComplete = new AutoCompleteStringCollection();
             wiiuStageAutoComplete.AddRange(new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower"});
 
+            // Simulate selecting a tab so that the textboxes will generate for the first time
             tabControl_SelectedIndexChanged(tabControlType, new EventArgs());
+
+            // Set the game
             comboBoxGame.SelectedItem = "Melee";
         }
 
+        #region Buttons
+        // Generate match info for Liquipedia
         private void buttonFill_Click(object sender, EventArgs e)
         {
             string output = string.Empty;
@@ -166,6 +175,7 @@ namespace Match_Detail_Filler
             richTextBoxOutput.Text = output;
         }
 
+        // Clear all textboxes
         private void buttonClear_Click(object sender, EventArgs e)
         {
             foreach(Control x in this.Controls)
@@ -178,6 +188,26 @@ namespace Match_Detail_Filler
             }
         }
 
+        // Trim youtube URLs to remove playlists and other such things
+        private void buttonTrim_Click(object sender, EventArgs e)
+        {
+            int pos = textBoxYoutube.Text.IndexOf("&");
+
+            if (pos != -1)
+            {
+                textBoxYoutube.Text = textBoxYoutube.Text.Substring(0, pos);
+            }
+
+            pos = textBoxYoutube.Text.IndexOf("?list");
+
+            if (pos != -1)
+            {
+                textBoxYoutube.Text = textBoxYoutube.Text.Substring(0, pos);
+            }
+        }
+        #endregion
+
+        #region textBox Leave Events
         // Capitalize starting letter
         private void textBoxStage_Leave(object sender, EventArgs e)
         {
@@ -247,13 +277,17 @@ namespace Match_Detail_Filler
             }
             
         }
+        #endregion
 
+        #region Autocomplete
+        // Set autocomplete settings based on match type and game type
         private void comboBoxGame_SelectedValueChanged(object sender, EventArgs e)
         {
             if(sender == comboBoxGame)
             {
                 if (tabControlType.SelectedTab.Text == "Singles")
                 {
+                    // Exits the function if nothing is selected. This is guaranteed to happen on form initialization.
                     if (comboBoxGame.SelectedItem == null) return;
 
                     switch (comboBoxGame.SelectedItem.ToString())
@@ -323,29 +357,62 @@ namespace Match_Detail_Filler
             }
         }
 
+        // Enable autocomplete for a given textbox
         private void SetTextboxAutoComplete(TextBox box, AutoCompleteStringCollection autocompleteList)
         {
             box.AutoCompleteCustomSource = autocompleteList;
             box.AutoCompleteMode = AutoCompleteMode.Append;
             box.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
+        #endregion
 
+        // Alter the form depending on whether the singles or doubles tab is selected
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             TabControl tabs = (TabControl)sender;
 
-            // Clear textboxes from tab
+            // Remove all existing textboxes except for the player name fields
             foreach (TextBox[] row in matchList)
             {
-                for (int i = 0; i < row.Length; i++)
+                if (row.Length == SINGLES_WIDTH)
                 {
-                    if (i == (int)SinglesField.p1char || i == (int)SinglesField.p2char)
+                    for (int i = 0; i < row.Length; i++)
                     {
-                        row[i].Leave -= new EventHandler(textBoxChar_Leave);
+                        // Remove character auto-population event
+                        if (i == (int)SinglesField.p1char || i == (int)SinglesField.p2char)
+                        {
+                            row[i].Leave -= new EventHandler(textBoxChar_Leave);
+                        }
+
+                        // Remove stage auto-capitalization event
+                        if (i == (int)SinglesField.stage)
+                        {
+                            row[i].Leave -= new EventHandler(textBoxStage_Leave);
+                        }
+
+                        tabs.Controls.Remove(row[i]);
+                        row[i].Dispose();
                     }
-                
-                    tabs.Controls.Remove(row[i]);
-                    row[i].Dispose();
+                }
+                else if (row.Length == DOUBLES_WIDTH)
+                {
+                    for (int i = 0; i < row.Length; i++)
+                    {
+                        // Remove character auto-population event
+                        if (i == (int)DoublesField.t1p1char || i == (int)DoublesField.t1p2char || i == (int)DoublesField.t2p1char || i == (int)DoublesField.t2p2char)
+                        {
+                            row[i].Leave -= new EventHandler(textBoxChar_Leave);
+                        }
+
+                        // Remove stage auto-capitalization event
+                        if (i == (int)DoublesField.stage)
+                        {
+                            row[i].Leave -= new EventHandler(textBoxStage_Leave);
+                        }
+
+                        tabs.Controls.Remove(row[i]);
+                        row[i].Dispose();
+                    }
                 }
             }
 
@@ -366,20 +433,22 @@ namespace Match_Detail_Filler
                     {
                         TextBox newTextBox = new TextBox();
 
+                        // Set character auto-population for the first row
                         if (j == (int)SinglesField.p1char || j == (int)SinglesField.p2char)
                         {
-                            // Set column autofill for characters in the first row
                             if (i == 0)
                             {
                                 newTextBox.Leave += new EventHandler(textBoxChar_Leave);
                             }
                         }
 
+                        // Set auto-capitalization for stages
                         if (j == (int)SinglesField.stage)
                         {
                             newTextBox.Leave += new EventHandler(textBoxStage_Leave);
                         }
 
+                        // Score/stock textboxes need to be smaller
                         if (j == (int)SinglesField.p1score || j == (int)SinglesField.p2score)
                         {
                             newTextBox.Width = 47;
@@ -394,6 +463,7 @@ namespace Match_Detail_Filler
                         newTextBox.Height = 20;
                         newTextBox.Top = 32 + 26 * i;
 
+                        // Keep track of the last textbox position
                         lastLeft = newTextBox.Left + newTextBox.Width;
 
                         newTextBoxArray[j] = newTextBox;
@@ -403,6 +473,7 @@ namespace Match_Detail_Filler
                     matchList.Add(newTextBoxArray);
                 }
 
+                // Set the tab order for easy tab navigation
                 int tabNumber = TAB_NUMBER;
                 foreach (TextBox[] match in matchList)
                 {
@@ -415,6 +486,7 @@ namespace Match_Detail_Filler
             }
             else
             {
+                // Set form width
                 this.Width = 802;
 
                 // Set base textbox properties
@@ -426,20 +498,22 @@ namespace Match_Detail_Filler
                     {
                         TextBox newTextBox = new TextBox();
 
+                        // Set character auto-population for the first row
                         if (j == (int)DoublesField.t1p1char || j == (int)DoublesField.t1p2char || j == (int)DoublesField.t2p1char || j == (int)DoublesField.t2p2char)
                         {
-                            // Set column autofill for characters in the first row
                             if (i == 0)
                             {
                                 newTextBox.Leave += new EventHandler(textBoxChar_Leave);
                             }
                         }
 
+                        // Set auto-capitalization for stages
                         if (j == (int)DoublesField.stage)
                         {
                             newTextBox.Leave += new EventHandler(textBoxStage_Leave);
                         }
 
+                        // Score/stock textboxes need to be smaller
                         if (j == (int)DoublesField.t1p1score || j == (int)DoublesField.t1p2score || j == (int)DoublesField.t2p1score || j == (int)DoublesField.t2p2score)
                         {
                             newTextBox.Width = 47;
@@ -454,6 +528,7 @@ namespace Match_Detail_Filler
                         newTextBox.Height = 20;
                         newTextBox.Top = 32 + 26 * i;
 
+                        // Keep track of the last textbox position
                         lastLeft = newTextBox.Left + newTextBox.Width;
 
                         newTextBoxArray[j] = newTextBox;
@@ -463,6 +538,7 @@ namespace Match_Detail_Filler
                     matchList.Add(newTextBoxArray);
                 }
 
+                // Set the tab order for easy tab navigation
                 int tabNumber = TAB_NUMBER;
                 foreach (TextBox[] match in matchList)
                 {
@@ -479,6 +555,7 @@ namespace Match_Detail_Filler
         }
 
         #region Cue Banner
+        // https://jasonkemp.ca/blog/the-missing-net-1-cue-banners-in-windows-forms-em_setcuebanner-text-prompt/
         private const int EM_SETCUEBANNER = 0x1501;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
@@ -490,22 +567,5 @@ namespace Match_Detail_Filler
             SendMessage(control.Handle, EM_SETCUEBANNER, 0, text);
         }
         #endregion
-
-        private void buttonTrim_Click(object sender, EventArgs e)
-        {
-            int pos = textBoxYoutube.Text.IndexOf("&");
-
-            if (pos != -1)
-            {
-                textBoxYoutube.Text = textBoxYoutube.Text.Substring(0, pos);
-            }
-
-            pos = textBoxYoutube.Text.IndexOf("?list");
-
-            if (pos != -1)
-            {
-                textBoxYoutube.Text = textBoxYoutube.Text.Substring(0, pos);
-            }
-        }
     }
 }

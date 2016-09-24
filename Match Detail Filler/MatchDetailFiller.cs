@@ -178,13 +178,13 @@ namespace Match_Detail_Filler
         // Clear all textboxes
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            foreach(Control x in this.Controls)
+            textBoxMatch.Clear();
+            textBoxYoutube.Clear();
+            richTextBoxOutput.Clear();
+
+            foreach (TextBox box in tabControlType.SelectedTab.Controls.OfType<TextBox>())
             {
-                if(x is TextBox)
-                {
-                    ((TextBox)x).Clear();
-                }
-                    
+                box.Clear();
             }
         }
 

@@ -423,6 +423,7 @@ namespace Match_Detail_Filler
             {
                 // Set form width
                 this.Width = 562;
+                this.MinimumSize = new Size(562, 450);
 
                 // Set base textbox properties
                 for (int i = 0; i < SINGLES_HEIGHT; i++)
@@ -488,6 +489,7 @@ namespace Match_Detail_Filler
             {
                 // Set form width
                 this.Width = 802;
+                this.MinimumSize = new Size(802, 450);
 
                 // Set base textbox properties
                 for (int i = 0; i < DOUBLES_HEIGHT; i++)

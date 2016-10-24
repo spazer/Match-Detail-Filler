@@ -68,7 +68,7 @@ namespace Match_Detail_Filler
 
             // Create character and stage autocompletes for all games
             meleeCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            meleeCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk","link","samus","kirby","fox","pikachu","jigglypuff","cf","ness","peach","bowser","doc","zelda","sheik","ganon","ylink","falco","mewtwo","pichu","ic","game and watch","marth","roy"});
+            meleeCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk","link","samus","kirby","fox","pikachu","jigglypuff","cf","ness","peach","bowser","doc","zelda","sheik","ganon","yl","falco","mewtwo","pichu","ic","game and watch","marth","roy"});
 
             meleeStageAutoComplete = new AutoCompleteStringCollection();
             meleeStageAutoComplete.AddRange(new string[] { "Dream Land", "Final Destination", "Pokémon Stadium", "Battlefield", "Fountain of Dreams", "Yoshi's Story" });
@@ -422,8 +422,8 @@ namespace Match_Detail_Filler
             if (tabControlType.SelectedTab.Text == "Singles")
             {
                 // Set form width
-                this.Width = 562;
                 this.MinimumSize = new Size(562, 450);
+                this.Width = 562;
 
                 // Set base textbox properties
                 for (int i = 0; i < SINGLES_HEIGHT; i++)

@@ -313,7 +313,7 @@ namespace Match_Detail_Filler
                             {
                                 SetTextboxAutoComplete(match[(int)SinglesField.p1char], ssbCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.p2char], ssbCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.stage], ssbCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)SinglesField.stage], ssbStageAutoComplete);
                             }
                             break;
                     }

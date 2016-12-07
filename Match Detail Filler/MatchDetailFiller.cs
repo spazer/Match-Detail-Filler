@@ -19,6 +19,7 @@ namespace Match_Detail_Filler
         static string STOCK = "stock";
         static string CHAR = "char";
         static string WIN = "win";
+        static string DATE = "date";
         static string DETAILS = "details={{BracketMatchDetails|preview=|lrthread=|interview=|recap=|comment=|live=|vod=";
 
         // Cue banner text
@@ -165,6 +166,11 @@ namespace Match_Detail_Filler
                 }
 
                 matchNumber++;
+            }
+
+            if (textBoxDate.Text != string.Empty)
+            {
+                output += "|" + textBoxMatch.Text + DATE + "=" + textBoxDate.Text + "\r\n";
             }
 
             if (textBoxYoutube.Text != string.Empty)

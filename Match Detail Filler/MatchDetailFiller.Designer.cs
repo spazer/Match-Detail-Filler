@@ -57,6 +57,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.textBoxDate = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.tabControlType.SuspendLayout();
             this.tabPageSingles.SuspendLayout();
             this.tabPageDoubles.SuspendLayout();
@@ -72,7 +74,7 @@
             // buttonFill
             // 
             this.buttonFill.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFill.Location = new System.Drawing.Point(699, 370);
+            this.buttonFill.Location = new System.Drawing.Point(699, 376);
             this.buttonFill.Name = "buttonFill";
             this.buttonFill.Size = new System.Drawing.Size(75, 23);
             this.buttonFill.TabIndex = 99;
@@ -85,17 +87,17 @@
             this.richTextBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxOutput.Location = new System.Drawing.Point(15, 267);
+            this.richTextBoxOutput.Location = new System.Drawing.Point(15, 291);
             this.richTextBoxOutput.Name = "richTextBoxOutput";
             this.richTextBoxOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBoxOutput.Size = new System.Drawing.Size(678, 126);
+            this.richTextBoxOutput.Size = new System.Drawing.Size(678, 108);
             this.richTextBoxOutput.TabIndex = 99;
             this.richTextBoxOutput.Text = "";
             // 
             // buttonClear
             // 
             this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClear.Location = new System.Drawing.Point(699, 267);
+            this.buttonClear.Location = new System.Drawing.Point(699, 291);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 99;
@@ -159,7 +161,7 @@
             // 
             this.comboBoxGame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxGame.FormattingEnabled = true;
-            this.comboBoxGame.Location = new System.Drawing.Point(699, 331);
+            this.comboBoxGame.Location = new System.Drawing.Point(699, 337);
             this.comboBoxGame.Name = "comboBoxGame";
             this.comboBoxGame.Size = new System.Drawing.Size(75, 21);
             this.comboBoxGame.TabIndex = 101;
@@ -169,7 +171,7 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(699, 315);
+            this.label8.Location = new System.Drawing.Point(699, 321);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(35, 13);
             this.label8.TabIndex = 100;
@@ -191,7 +193,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlType.Controls.Add(this.tabPageSingles);
             this.tabControlType.Controls.Add(this.tabPageDoubles);
-            this.tabControlType.Location = new System.Drawing.Point(15, 71);
+            this.tabControlType.Location = new System.Drawing.Point(15, 95);
             this.tabControlType.Name = "tabControlType";
             this.tabControlType.SelectedIndex = 0;
             this.tabControlType.Size = new System.Drawing.Size(759, 190);
@@ -339,6 +341,22 @@
             this.label12.TabIndex = 154;
             this.label12.Text = "Team 1";
             // 
+            // textBoxDate
+            // 
+            this.textBoxDate.Location = new System.Drawing.Point(15, 69);
+            this.textBoxDate.Name = "textBoxDate";
+            this.textBoxDate.Size = new System.Drawing.Size(100, 20);
+            this.textBoxDate.TabIndex = 0;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(12, 53);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(30, 13);
+            this.label14.TabIndex = 100;
+            this.label14.Text = "Date";
+            // 
             // MatchDetailFiller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,11 +366,13 @@
             this.Controls.Add(this.comboBoxGame);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.richTextBoxOutput);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonFill);
             this.Controls.Add(this.textBoxYoutube);
+            this.Controls.Add(this.textBoxDate);
             this.Controls.Add(this.textBoxMatch);
             this.Controls.Add(this.tabControlType);
             this.MinimumSize = new System.Drawing.Size(562, 450);
@@ -398,6 +418,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBoxDate;
+        private System.Windows.Forms.Label label14;
     }
 }
 

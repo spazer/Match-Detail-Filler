@@ -48,6 +48,8 @@ namespace Match_Detail_Filler
         AutoCompleteStringCollection pmCharacterAutoCompleteList;
         AutoCompleteStringCollection pmStageAutoComplete;
 
+        string[] pmStages = new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls" };
+
         // A "matrix" of all generated textboxes in the tab control
         List<TextBox[]> matchList = new List<TextBox[]>();
 
@@ -93,7 +95,7 @@ namespace Match_Detail_Filler
             pmCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "peach", "bowser", "yoshi", "dk", "diddy", "link", "zelda", "sheik", "ganon", "toon link", "tink", "samus", "zss", "kirby", "meta knight", "mk", "king dedede", "dedede", "fox", "falco", "wolf", "pikachu", "jigglypuff", "puff", "mewtwo", "squirtle", "ivysaur", "charizard", "lucario", "cf", "ness", "lucas", "ic", "marth", "roy", "ike", "mr game and watch", "gw", "pit", "wario", "olimar", "rob", "snake", "sonic" });
 
             pmStageAutoComplete = new AutoCompleteStringCollection();
-            pmStageAutoComplete.AddRange(new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls" });
+            pmStageAutoComplete.AddRange(pmStages);
 
             // Simulate selecting a tab so that the textboxes will generate for the first time
             tabControl_SelectedIndexChanged(tabControlType, new EventArgs());
@@ -223,7 +225,7 @@ namespace Match_Detail_Filler
         #endregion
 
         #region textBox Leave Events
-        // Capitalize starting letter
+        // Capitalize starting letter and respect capitalization
         private void textBoxStage_Leave(object sender, EventArgs e)
         {
             TextBox box = (TextBox)sender;
@@ -233,6 +235,20 @@ namespace Match_Detail_Filler
                 string letter = box.Text.Substring(0, 1);
                 letter = letter.ToUpper();
                 box.Text = letter + box.Text.Substring(1);
+            }
+
+            // Project M exception
+            if (comboBoxGame.SelectedItem.ToString() == "Project M")
+            {
+                // If the stage name matches, match the capitalization
+                for (int i = 0; i < pmStages.Count(); i++)
+                {
+                    if(string.Compare(box.Text, pmStages[i], true) == 0)
+                    {
+                        box.Text = pmStages[i];
+                        break;
+                    }
+                }
             }
         }
 

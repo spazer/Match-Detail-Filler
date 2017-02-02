@@ -45,6 +45,8 @@ namespace Match_Detail_Filler
         AutoCompleteStringCollection ssbStageAutoComplete;
         AutoCompleteStringCollection wiiuCharacterAutoCompleteList;
         AutoCompleteStringCollection wiiuStageAutoComplete;
+        AutoCompleteStringCollection pmCharacterAutoCompleteList;
+        AutoCompleteStringCollection pmStageAutoComplete;
 
         // A "matrix" of all generated textboxes in the tab control
         List<TextBox[]> matchList = new List<TextBox[]>();
@@ -66,6 +68,7 @@ namespace Match_Detail_Filler
             comboBoxGame.Items.Add("Melee");
             comboBoxGame.Items.Add("Wii U");
             comboBoxGame.Items.Add("64");
+            comboBoxGame.Items.Add("Project M");
 
             // Create character and stage autocompletes for all games
             meleeCharacterAutoCompleteList = new AutoCompleteStringCollection();
@@ -78,13 +81,19 @@ namespace Match_Detail_Filler
             ssbCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "cf", "ness" });
 
             ssbStageAutoComplete = new AutoCompleteStringCollection();
-            ssbStageAutoComplete.AddRange(new string[] { "Dream Land", "Hyrule Castle" });
+            ssbStageAutoComplete.AddRange(new string[] { "Dream Land", "Hyrule Castle", "Peach's Castle", "Congo Jungle" });
 
             wiiuCharacterAutoCompleteList = new AutoCompleteStringCollection();
             wiiuCharacterAutoCompleteList.AddRange(new string[] { "mario","luigi","peach","bowser","doc","yoshi","dk","diddy","link","zelda","sheik","ganon","toon link","samus","kirby","zss","mk","fox","dedede","falco","pikachu","jigglypuff","mewtwo","charizard","lucario","cf","ness","lucas","marth","roy","ike","game and watch","pit","wario","olimar","rob","sonic","rosalina","bowser jr","greninja","robin","lucina","corrin","palutena","villager","dark pit","little mac","wii fit","duck hunt","shulk","mega man","pac-man","ryu","cloud","bayonetta","mii brawler","mii swordfighter","mii gunner" });
 
             wiiuStageAutoComplete = new AutoCompleteStringCollection();
-            wiiuStageAutoComplete.AddRange(new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower"});
+            wiiuStageAutoComplete.AddRange(new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower", "Pokémon Stadium 2" });
+
+            pmCharacterAutoCompleteList = new AutoCompleteStringCollection();
+            pmCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "peach", "bowser", "yoshi", "dk", "diddy", "link", "zelda", "sheik", "ganon", "toon link", "tink", "samus", "zss", "kirby", "meta knight", "mk", "king dedede", "dedede", "fox", "falco", "wolf", "pikachu", "jigglypuff", "puff", "mewtwo", "squirtle", "ivysaur", "charizard", "lucario", "cf", "ness", "lucas", "ic", "marth", "roy", "ike", "mr game and watch", "gw", "pit", "wario", "olimar", "rob", "snake", "sonic" });
+
+            pmStageAutoComplete = new AutoCompleteStringCollection();
+            pmStageAutoComplete.AddRange(new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls" });
 
             // Simulate selecting a tab so that the textboxes will generate for the first time
             tabControl_SelectedIndexChanged(tabControlType, new EventArgs());
@@ -322,6 +331,14 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)SinglesField.stage], ssbStageAutoComplete);
                             }
                             break;
+                        case "Project M":
+                            foreach (TextBox[] match in matchList)
+                            {
+                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], pmCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], pmCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)SinglesField.stage], pmStageAutoComplete);
+                            }
+                            break;
                     }
                 }
                 else if (tabControlType.SelectedTab.Text == "Doubles")
@@ -356,6 +373,16 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], ssbCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], ssbCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.stage], ssbStageAutoComplete);
+                            }
+                            break;
+                        case "Project M":
+                            foreach (TextBox[] match in matchList)
+                            {
+                                SetTextboxAutoComplete(match[(int)DoublesField.t1p1char], pmCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)DoublesField.t1p2char], pmCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], pmCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], pmCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)DoublesField.stage], pmStageAutoComplete);
                             }
                             break;
                     }

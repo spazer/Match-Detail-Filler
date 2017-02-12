@@ -48,8 +48,11 @@ namespace Match_Detail_Filler
         AutoCompleteStringCollection pmCharacterAutoCompleteList;
         AutoCompleteStringCollection pmStageAutoComplete;
 
+        string[] meleeStages = new string[] { "Dream Land", "Final Destination", "Pokémon Stadium", "Battlefield", "Fountain of Dreams", "Yoshi's Story" };
+        string[] wiiuStages = new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower", "Pokémon Stadium 2" };
         string[] pmStages = new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls" };
-
+        string[] ssbStages = new string[] { "Dream Land", "Hyrule Castle", "Peach's Castle", "Congo Jungle", "Planet Zebes", "Saffron City" };
+        string[] currentStageList;
         // A "matrix" of all generated textboxes in the tab control
         List<TextBox[]> matchList = new List<TextBox[]>();
 
@@ -77,19 +80,19 @@ namespace Match_Detail_Filler
             meleeCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk","link","samus","kirby","fox","pikachu","jigglypuff","cf","ness","peach","bowser","doc","zelda","sheik","ganon","yl","falco","mewtwo","pichu","ic","game and watch","marth","roy"});
 
             meleeStageAutoComplete = new AutoCompleteStringCollection();
-            meleeStageAutoComplete.AddRange(new string[] { "Dream Land", "Final Destination", "Pokémon Stadium", "Battlefield", "Fountain of Dreams", "Yoshi's Story" });
+            meleeStageAutoComplete.AddRange(meleeStages);
 
             ssbCharacterAutoCompleteList = new AutoCompleteStringCollection();
             ssbCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "cf", "ness" });
 
             ssbStageAutoComplete = new AutoCompleteStringCollection();
-            ssbStageAutoComplete.AddRange(new string[] { "Dream Land", "Hyrule Castle", "Peach's Castle", "Congo Jungle" });
+            ssbStageAutoComplete.AddRange(new string[] {  });
 
             wiiuCharacterAutoCompleteList = new AutoCompleteStringCollection();
             wiiuCharacterAutoCompleteList.AddRange(new string[] { "mario","luigi","peach","bowser","doc","yoshi","dk","diddy","link","zelda","sheik","ganon","toon link","samus","kirby","zss","mk","fox","dedede","falco","pikachu","jigglypuff","mewtwo","charizard","lucario","cf","ness","lucas","marth","roy","ike","game and watch","pit","wario","olimar","rob","sonic","rosalina","bowser jr","greninja","robin","lucina","corrin","palutena","villager","dark pit","little mac","wii fit","duck hunt","shulk","mega man","pac-man","ryu","cloud","bayonetta","mii brawler","mii swordfighter","mii gunner" });
 
             wiiuStageAutoComplete = new AutoCompleteStringCollection();
-            wiiuStageAutoComplete.AddRange(new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower", "Pokémon Stadium 2" });
+            wiiuStageAutoComplete.AddRange(wiiuStages);
 
             pmCharacterAutoCompleteList = new AutoCompleteStringCollection();
             pmCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "peach", "bowser", "yoshi", "dk", "diddy", "link", "zelda", "sheik", "ganon", "toon link", "tink", "samus", "zss", "kirby", "meta knight", "mk", "king dedede", "dedede", "fox", "falco", "wolf", "pikachu", "jigglypuff", "puff", "mewtwo", "squirtle", "ivysaur", "charizard", "lucario", "cf", "ness", "lucas", "ic", "marth", "roy", "ike", "mr game and watch", "gw", "pit", "wario", "olimar", "rob", "snake", "sonic" });
@@ -237,17 +240,14 @@ namespace Match_Detail_Filler
                 box.Text = letter + box.Text.Substring(1);
             }
 
-            // Project M exception
-            if (comboBoxGame.SelectedItem.ToString() == "Project M")
+
+            // If the stage name matches, match the capitalization
+            for (int i = 0; i < currentStageList.Count(); i++)
             {
-                // If the stage name matches, match the capitalization
-                for (int i = 0; i < pmStages.Count(); i++)
+                if(string.Compare(box.Text, currentStageList[i], true) == 0)
                 {
-                    if(string.Compare(box.Text, pmStages[i], true) == 0)
-                    {
-                        box.Text = pmStages[i];
-                        break;
-                    }
+                    box.Text = currentStageList[i];
+                    break;
                 }
             }
         }
@@ -329,6 +329,7 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)SinglesField.p1char], meleeCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.p2char], meleeCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.stage], meleeStageAutoComplete);
+                                currentStageList = meleeStages;
                             }
                             break;
                         case "Wii U":
@@ -337,6 +338,7 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)SinglesField.p1char], wiiuCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.p2char], wiiuCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.stage], wiiuStageAutoComplete);
+                                currentStageList = wiiuStages;
                             }
                             break;
                         case "64":
@@ -345,6 +347,7 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)SinglesField.p1char], ssbCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.p2char], ssbCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.stage], ssbStageAutoComplete);
+                                currentStageList = ssbStages;
                             }
                             break;
                         case "Project M":
@@ -353,6 +356,7 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)SinglesField.p1char], pmCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.p2char], pmCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.stage], pmStageAutoComplete);
+                                currentStageList = pmStages;
                             }
                             break;
                     }
@@ -369,6 +373,7 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], meleeCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], meleeCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.stage], meleeStageAutoComplete);
+                                currentStageList = meleeStages;
                             }
                             break;
                         case "Wii U":
@@ -379,6 +384,7 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], wiiuCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], wiiuCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.stage], wiiuStageAutoComplete);
+                                currentStageList = wiiuStages;
                             }
                             break;
                         case "64":
@@ -389,6 +395,7 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], ssbCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], ssbCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.stage], ssbStageAutoComplete);
+                                currentStageList = ssbStages;
                             }
                             break;
                         case "Project M":
@@ -399,6 +406,7 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], pmCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], pmCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.stage], pmStageAutoComplete);
+                                currentStageList = pmStages;
                             }
                             break;
                     }

@@ -49,13 +49,15 @@ namespace Match_Detail_Filler
         AutoCompleteStringCollection pmStageAutoComplete;
 
         string[] meleeStages = new string[] { "Dream Land", "Final Destination", "Pokémon Stadium", "Battlefield", "Fountain of Dreams", "Yoshi's Story" };
-        string[] wiiuStages = new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower", "Pokémon Stadium 2" };
+        string[] wiiuStages = new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land (64)", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower", "Pokémon Stadium 2",
+                                             "Ω Palutena's Temple", "Ω Gaur Plain", "Ω Orbital Gate Assault", "Ω Mushroom Kingdom U", "Ω Mario Galaxy", "Ω Kalos Pokémon League"};
         string[] pmStages = new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls" };
         string[] ssbStages = new string[] { "Dream Land", "Hyrule Castle", "Peach's Castle", "Congo Jungle", "Planet Zebes", "Saffron City" };
         string[] currentStageList;
         // A "matrix" of all generated textboxes in the tab control
         List<TextBox[]> matchList = new List<TextBox[]>();
 
+        // Constructor
         public MatchDetailFiller()
         {
             InitializeComponent();
@@ -227,7 +229,7 @@ namespace Match_Detail_Filler
         }
         #endregion
 
-        #region textBox Leave Events
+        #region textBox Events
         // Capitalize starting letter and respect capitalization
         private void textBoxStage_Leave(object sender, EventArgs e)
         {
@@ -239,7 +241,6 @@ namespace Match_Detail_Filler
                 letter = letter.ToUpper();
                 box.Text = letter + box.Text.Substring(1);
             }
-
 
             // If the stage name matches, match the capitalization
             for (int i = 0; i < currentStageList.Count(); i++)
@@ -307,6 +308,21 @@ namespace Match_Detail_Filler
                 }
             }
             
+        }
+
+        // Use the Ω symbol for Wii U Omega stages
+        private void textBoxStage_KeyUp(object sender, EventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+
+            if (comboBoxGame.Text == "Wii U")
+            {
+                if (box.Text == "o " || box.Text == "O " || box.Text == "Omega " || box.Text == "omega ")
+                {
+                    box.Text = "Ω ";
+                    box.SelectionStart = box.Text.Length;
+                }
+            }
         }
         #endregion
 
@@ -504,6 +520,7 @@ namespace Match_Detail_Filler
                         if (j == (int)SinglesField.stage)
                         {
                             newTextBox.Leave += new EventHandler(textBoxStage_Leave);
+                            newTextBox.KeyUp += new KeyEventHandler(textBoxStage_KeyUp);
                         }
 
                         // Score/stock textboxes need to be smaller

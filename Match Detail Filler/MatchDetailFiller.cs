@@ -88,7 +88,7 @@ namespace Match_Detail_Filler
             ssbCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "cf", "ness" });
 
             ssbStageAutoComplete = new AutoCompleteStringCollection();
-            ssbStageAutoComplete.AddRange(new string[] {  });
+            ssbStageAutoComplete.AddRange(ssbStages);
 
             wiiuCharacterAutoCompleteList = new AutoCompleteStringCollection();
             wiiuCharacterAutoCompleteList.AddRange(new string[] { "mario","luigi","peach","bowser","doc","yoshi","dk","diddy","link","zelda","sheik","ganon","toon link","samus","kirby","zss","mk","fox","dedede","falco","pikachu","jigglypuff","mewtwo","charizard","lucario","cf","ness","lucas","marth","roy","ike","game and watch","pit","wario","olimar","rob","sonic","rosalina","bowser jr","greninja","robin","lucina","corrin","palutena","villager","dark pit","little mac","wii fit","duck hunt","shulk","mega man","pac-man","ryu","cloud","bayonetta","mii brawler","mii swordfighter","mii gunner" });

@@ -20,7 +20,7 @@ namespace Match_Detail_Filler
         static string CHAR = "char";
         static string WIN = "win";
         static string DATE = "date";
-        static string DETAILS = "details={{BracketMatchDetails|preview=|lrthread=|interview=|recap=|comment=|live=|vod=";
+        static string DETAILS = "details={{BracketMatchDetails|reddit=|comment=|vod=";
 
         // Cue banner text
         static string DEFAULT_HEADER_T1P1 = "Team 1 P1";
@@ -47,11 +47,12 @@ namespace Match_Detail_Filler
         AutoCompleteStringCollection wiiuStageAutoComplete;
         AutoCompleteStringCollection pmCharacterAutoCompleteList;
         AutoCompleteStringCollection pmStageAutoComplete;
+        AutoCompleteStringCollection sfvCharacterAutoCompleteList;
 
         string[] meleeStages = new string[] { "Dream Land", "Final Destination", "Pokémon Stadium", "Battlefield", "Fountain of Dreams", "Yoshi's Story" };
         string[] wiiuStages = new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land (64)", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower", "Pokémon Stadium 2",
                                              "Ω Palutena's Temple", "Ω Gaur Plain", "Ω Orbital Gate Assault", "Ω Mushroom Kingdom U", "Ω Mario Galaxy", "Ω Kalos Pokémon League"};
-        string[] pmStages = new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls" };
+        string[] pmStages = new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls", "Lylat Cruise" };
         string[] ssbStages = new string[] { "Dream Land", "Hyrule Castle", "Peach's Castle", "Congo Jungle", "Planet Zebes", "Saffron City" };
         string[] currentStageList;
         // A "matrix" of all generated textboxes in the tab control
@@ -76,22 +77,23 @@ namespace Match_Detail_Filler
             comboBoxGame.Items.Add("Wii U");
             comboBoxGame.Items.Add("64");
             comboBoxGame.Items.Add("Project M");
+            comboBoxGame.Items.Add("SFV");
 
             // Create character and stage autocompletes for all games
             meleeCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            meleeCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk","link","samus","kirby","fox","pikachu","jigglypuff","cf","ness","peach","bowser","doc","zelda","sheik","ganon","yl","falco","mewtwo","pichu","ic","game and watch","marth","roy"});
+            meleeCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "puff", "cf", "ness", "peach", "bowser", "doc", "zelda", "sheik", "ganon", "yl", "falco", "mewtwo", "pichu", "ic", "game and watch", "marth", "roy" });
 
             meleeStageAutoComplete = new AutoCompleteStringCollection();
             meleeStageAutoComplete.AddRange(meleeStages);
 
             ssbCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            ssbCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "cf", "ness" });
+            ssbCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "puff", "cf", "ness" });
 
             ssbStageAutoComplete = new AutoCompleteStringCollection();
             ssbStageAutoComplete.AddRange(ssbStages);
 
             wiiuCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            wiiuCharacterAutoCompleteList.AddRange(new string[] { "mario","luigi","peach","bowser","doc","yoshi","dk","diddy","link","zelda","sheik","ganon","toon link","samus","kirby","zss","mk","fox","dedede","falco","pikachu","jigglypuff","mewtwo","charizard","lucario","cf","ness","lucas","marth","roy","ike","game and watch","pit","wario","olimar","rob","sonic","rosalina","bowser jr","greninja","robin","lucina","corrin","palutena","villager","dark pit","little mac","wii fit","duck hunt","shulk","mega man","pac-man","ryu","cloud","bayonetta","mii brawler","mii swordfighter","mii gunner" });
+            wiiuCharacterAutoCompleteList.AddRange(new string[] { "mario","luigi","peach","bowser","doc","yoshi","dk","diddy","link","zelda","sheik","ganon","toon link","samus","kirby","zss","mk","fox","dedede","falco","pikachu","jigglypuff","puff","mewtwo","charizard","lucario","cf","ness","lucas","marth","roy","ike","game and watch","pit","wario","olimar","rob","sonic","rosalina","bowser jr","greninja","robin","lucina","corrin","palutena","villager","dark pit","little mac","wii fit","duck hunt","shulk","mega man","pac-man","ryu","cloud","bayonetta","mii brawler","mii swordfighter","mii gunner" });
 
             wiiuStageAutoComplete = new AutoCompleteStringCollection();
             wiiuStageAutoComplete.AddRange(wiiuStages);
@@ -101,6 +103,9 @@ namespace Match_Detail_Filler
 
             pmStageAutoComplete = new AutoCompleteStringCollection();
             pmStageAutoComplete.AddRange(pmStages);
+
+            sfvCharacterAutoCompleteList = new AutoCompleteStringCollection();
+            sfvCharacterAutoCompleteList.AddRange(new string[] { "akuma", "alex", "balrog", "birdie", "cammy", "chun", "dhalsim", "fang", "guile", "ibuki", "juri", "karin", "ken", "kolin", "laura", "bison", "nash", "necalli", "mika", "rashid", "ryu", "urien", "vega", "zangief" });
 
             // Simulate selecting a tab so that the textboxes will generate for the first time
             tabControl_SelectedIndexChanged(tabControlType, new EventArgs());
@@ -120,29 +125,58 @@ namespace Match_Detail_Filler
             {
                 if (tabControlType.SelectedTab.Text == "Singles")
                 {
-                    if (match[(int)SinglesField.stage].Text != string.Empty)
+                    if (comboBoxGame.SelectedItem.ToString() == "SFV")
                     {
-                        output += "|" + textBoxMatch.Text + "p1char" + matchNumber + "=" + match[(int)SinglesField.p1char].Text + " ";
-                        output += "|" + textBoxMatch.Text + "p2char" + matchNumber + "=" + match[(int)SinglesField.p2char].Text + " ";
-                        output += "|" + textBoxMatch.Text + "p1stock" + matchNumber + "=" + match[(int)SinglesField.p1score].Text + " ";
-                        output += "|" + textBoxMatch.Text + "p2stock" + matchNumber + "=" + match[(int)SinglesField.p2score].Text + " ";
-
-                        if (match[(int)SinglesField.p1score].Text != string.Empty && match[(int)SinglesField.p2score].Text != string.Empty)
+                        if (match[(int)SinglesField.p1score].Text != string.Empty || match[(int)SinglesField.p2score].Text != string.Empty)
                         {
-                            if (int.Parse(match[(int)SinglesField.p1score].Text) > int.Parse(match[(int)SinglesField.p2score].Text))
+                            output += "|" + textBoxMatch.Text + "p1char" + matchNumber + "=" + match[(int)SinglesField.p1char].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p2char" + matchNumber + "=" + match[(int)SinglesField.p2char].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p1score" + matchNumber + "=" + match[(int)SinglesField.p1score].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p2score" + matchNumber + "=" + match[(int)SinglesField.p2score].Text + " ";
+
+                            if (match[(int)SinglesField.p1score].Text != string.Empty && match[(int)SinglesField.p2score].Text != string.Empty)
                             {
-                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                                if (int.Parse(match[(int)SinglesField.p1score].Text) > int.Parse(match[(int)SinglesField.p2score].Text))
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 " + "\r\n";
+                                }
+                                else
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 " + "\r\n";
+                                }
                             }
                             else
                             {
-                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "= " + "\r\n";
                             }
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (match[(int)SinglesField.stage].Text != string.Empty)
                         {
-                            output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
+                            output += "|" + textBoxMatch.Text + "p1char" + matchNumber + "=" + match[(int)SinglesField.p1char].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p2char" + matchNumber + "=" + match[(int)SinglesField.p2char].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p1stock" + matchNumber + "=" + match[(int)SinglesField.p1score].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p2stock" + matchNumber + "=" + match[(int)SinglesField.p2score].Text + " ";
+
+                            if (match[(int)SinglesField.p1score].Text != string.Empty && match[(int)SinglesField.p2score].Text != string.Empty)
+                            {
+                                if (int.Parse(match[(int)SinglesField.p1score].Text) > int.Parse(match[(int)SinglesField.p2score].Text))
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                                }
+                                else
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                                }
+                            }
+                            else
+                            {
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
+                            }
+                            output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)SinglesField.stage].Text + "\r\n";
                         }
-                        output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)SinglesField.stage].Text + "\r\n";
                     }
                 }
                 else
@@ -337,6 +371,11 @@ namespace Match_Detail_Filler
                     // Exits the function if nothing is selected. This is guaranteed to happen on form initialization.
                     if (comboBoxGame.SelectedItem == null) return;
 
+                    foreach (TextBox[] match in matchList)
+                    {
+                        match[(int)SinglesField.stage].Enabled = true;
+                    }
+
                     switch (comboBoxGame.SelectedItem.ToString())
                     {
                         case "Melee":
@@ -373,6 +412,15 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)SinglesField.p2char], pmCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)SinglesField.stage], pmStageAutoComplete);
                                 currentStageList = pmStages;
+                            }
+                            break;
+                        case "SFV":
+                            foreach (TextBox[] match in matchList)
+                            {
+                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], sfvCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], sfvCharacterAutoCompleteList);
+
+                                match[(int)SinglesField.stage].Enabled = false;
                             }
                             break;
                     }
@@ -423,6 +471,14 @@ namespace Match_Detail_Filler
                                 SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], pmCharacterAutoCompleteList);
                                 SetTextboxAutoComplete(match[(int)DoublesField.stage], pmStageAutoComplete);
                                 currentStageList = pmStages;
+                            }
+                            break;
+                        case "SFV":
+                            tabControlType.SelectTab(0);
+                            foreach (TextBox[] match in matchList)
+                            {
+                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], sfvCharacterAutoCompleteList);
+                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], sfvCharacterAutoCompleteList);
                             }
                             break;
                     }

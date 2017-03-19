@@ -228,7 +228,7 @@ namespace Match_Detail_Filler
                 output += "|" + textBoxMatch.Text + DETAILS + textBoxYoutube.Text + "}}";
             }
 
-            richTextBoxOutput.Text = output;
+            richTextBoxOutput.Text = output.Trim();
         }
 
         // Clear all textboxes

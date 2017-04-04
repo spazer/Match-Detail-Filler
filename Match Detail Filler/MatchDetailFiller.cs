@@ -242,7 +242,7 @@ namespace Match_Detail_Filler
             }
 
             bool vodExists = false;
-            string details = DETAILS;
+            string details = "|" + textBoxMatch.Text + DETAILS;
             if (tabControlVod.SelectedIndex == 0)
             {
                 if (textBoxVodSet1.Text != string.Empty)

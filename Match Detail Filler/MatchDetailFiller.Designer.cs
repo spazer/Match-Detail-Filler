@@ -35,9 +35,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxYoutube = new System.Windows.Forms.TextBox();
+            this.textBoxVodSet1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.comboBoxGame = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.buttonTrim = new System.Windows.Forms.Button();
@@ -59,9 +58,31 @@
             this.label12 = new System.Windows.Forms.Label();
             this.textBoxDate = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.tabControlVod = new System.Windows.Forms.TabControl();
+            this.tabPageVodSingle = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBoxVodSet2 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tabPageVodMultiple = new System.Windows.Forms.TabPage();
+            this.textBoxVodGame6 = new System.Windows.Forms.TextBox();
+            this.textBoxVodGame4 = new System.Windows.Forms.TextBox();
+            this.textBoxVodGame2 = new System.Windows.Forms.TextBox();
+            this.textBoxVodGame5 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBoxVodGame3 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBoxVodGame1 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.checkBoxDetails = new System.Windows.Forms.CheckBox();
             this.tabControlType.SuspendLayout();
             this.tabPageSingles.SuspendLayout();
             this.tabPageDoubles.SuspendLayout();
+            this.tabControlVod.SuspendLayout();
+            this.tabPageVodSingle.SuspendLayout();
+            this.tabPageVodMultiple.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxMatch
@@ -132,12 +153,12 @@
             this.label5.TabIndex = 100;
             this.label5.Text = "P2 stocks";
             // 
-            // textBoxYoutube
+            // textBoxVodSet1
             // 
-            this.textBoxYoutube.Location = new System.Drawing.Point(121, 26);
-            this.textBoxYoutube.Name = "textBoxYoutube";
-            this.textBoxYoutube.Size = new System.Drawing.Size(312, 20);
-            this.textBoxYoutube.TabIndex = 1;
+            this.textBoxVodSet1.Location = new System.Drawing.Point(40, 6);
+            this.textBoxVodSet1.Name = "textBoxVodSet1";
+            this.textBoxVodSet1.Size = new System.Drawing.Size(312, 20);
+            this.textBoxVodSet1.TabIndex = 1;
             // 
             // label6
             // 
@@ -147,15 +168,6 @@
             this.label6.Size = new System.Drawing.Size(39, 13);
             this.label6.TabIndex = 100;
             this.label6.Text = "Round";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(118, 10);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 13);
-            this.label7.TabIndex = 100;
-            this.label7.Text = "VOD Link";
             // 
             // comboBoxGame
             // 
@@ -179,7 +191,7 @@
             // 
             // buttonTrim
             // 
-            this.buttonTrim.Location = new System.Drawing.Point(439, 24);
+            this.buttonTrim.Location = new System.Drawing.Point(285, 4);
             this.buttonTrim.Name = "buttonTrim";
             this.buttonTrim.Size = new System.Drawing.Size(75, 23);
             this.buttonTrim.TabIndex = 102;
@@ -357,32 +369,216 @@
             this.label14.TabIndex = 100;
             this.label14.Text = "Date";
             // 
+            // tabControlVod
+            // 
+            this.tabControlVod.Controls.Add(this.tabPageVodSingle);
+            this.tabControlVod.Controls.Add(this.tabPageVodMultiple);
+            this.tabControlVod.Location = new System.Drawing.Point(121, 10);
+            this.tabControlVod.Name = "tabControlVod";
+            this.tabControlVod.SelectedIndex = 0;
+            this.tabControlVod.Size = new System.Drawing.Size(393, 93);
+            this.tabControlVod.TabIndex = 103;
+            // 
+            // tabPageVodSingle
+            // 
+            this.tabPageVodSingle.Controls.Add(this.label15);
+            this.tabPageVodSingle.Controls.Add(this.textBoxVodSet2);
+            this.tabPageVodSingle.Controls.Add(this.label7);
+            this.tabPageVodSingle.Controls.Add(this.textBoxVodSet1);
+            this.tabPageVodSingle.Location = new System.Drawing.Point(4, 22);
+            this.tabPageVodSingle.Name = "tabPageVodSingle";
+            this.tabPageVodSingle.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageVodSingle.Size = new System.Drawing.Size(385, 67);
+            this.tabPageVodSingle.TabIndex = 0;
+            this.tabPageVodSingle.Text = "VODs by set";
+            this.tabPageVodSingle.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 40);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(37, 13);
+            this.label15.TabIndex = 104;
+            this.label15.Text = "vod2=";
+            // 
+            // textBoxVodSet2
+            // 
+            this.textBoxVodSet2.Location = new System.Drawing.Point(40, 37);
+            this.textBoxVodSet2.Name = "textBoxVodSet2";
+            this.textBoxVodSet2.Size = new System.Drawing.Size(312, 20);
+            this.textBoxVodSet2.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(31, 13);
+            this.label7.TabIndex = 104;
+            this.label7.Text = "vod=";
+            // 
+            // tabPageVodMultiple
+            // 
+            this.tabPageVodMultiple.Controls.Add(this.textBoxVodGame6);
+            this.tabPageVodMultiple.Controls.Add(this.textBoxVodGame4);
+            this.tabPageVodMultiple.Controls.Add(this.textBoxVodGame2);
+            this.tabPageVodMultiple.Controls.Add(this.textBoxVodGame5);
+            this.tabPageVodMultiple.Controls.Add(this.label21);
+            this.tabPageVodMultiple.Controls.Add(this.textBoxVodGame3);
+            this.tabPageVodMultiple.Controls.Add(this.label19);
+            this.tabPageVodMultiple.Controls.Add(this.label20);
+            this.tabPageVodMultiple.Controls.Add(this.textBoxVodGame1);
+            this.tabPageVodMultiple.Controls.Add(this.label18);
+            this.tabPageVodMultiple.Controls.Add(this.label17);
+            this.tabPageVodMultiple.Controls.Add(this.label16);
+            this.tabPageVodMultiple.Location = new System.Drawing.Point(4, 22);
+            this.tabPageVodMultiple.Name = "tabPageVodMultiple";
+            this.tabPageVodMultiple.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageVodMultiple.Size = new System.Drawing.Size(385, 67);
+            this.tabPageVodMultiple.TabIndex = 1;
+            this.tabPageVodMultiple.Text = "VODs by game";
+            this.tabPageVodMultiple.UseVisualStyleBackColor = true;
+            // 
+            // textBoxVodGame6
+            // 
+            this.textBoxVodGame6.Location = new System.Drawing.Point(271, 32);
+            this.textBoxVodGame6.Name = "textBoxVodGame6";
+            this.textBoxVodGame6.Size = new System.Drawing.Size(103, 20);
+            this.textBoxVodGame6.TabIndex = 105;
+            // 
+            // textBoxVodGame4
+            // 
+            this.textBoxVodGame4.Location = new System.Drawing.Point(142, 32);
+            this.textBoxVodGame4.Name = "textBoxVodGame4";
+            this.textBoxVodGame4.Size = new System.Drawing.Size(103, 20);
+            this.textBoxVodGame4.TabIndex = 105;
+            // 
+            // textBoxVodGame2
+            // 
+            this.textBoxVodGame2.Location = new System.Drawing.Point(17, 32);
+            this.textBoxVodGame2.Name = "textBoxVodGame2";
+            this.textBoxVodGame2.Size = new System.Drawing.Size(103, 20);
+            this.textBoxVodGame2.TabIndex = 105;
+            // 
+            // textBoxVodGame5
+            // 
+            this.textBoxVodGame5.Location = new System.Drawing.Point(271, 6);
+            this.textBoxVodGame5.Name = "textBoxVodGame5";
+            this.textBoxVodGame5.Size = new System.Drawing.Size(103, 20);
+            this.textBoxVodGame5.TabIndex = 1;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(257, 35);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(13, 13);
+            this.label21.TabIndex = 106;
+            this.label21.Text = "6";
+            // 
+            // textBoxVodGame3
+            // 
+            this.textBoxVodGame3.Location = new System.Drawing.Point(142, 6);
+            this.textBoxVodGame3.Name = "textBoxVodGame3";
+            this.textBoxVodGame3.Size = new System.Drawing.Size(103, 20);
+            this.textBoxVodGame3.TabIndex = 1;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(128, 35);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(13, 13);
+            this.label19.TabIndex = 106;
+            this.label19.Text = "4";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(257, 9);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(13, 13);
+            this.label20.TabIndex = 104;
+            this.label20.Text = "5";
+            // 
+            // textBoxVodGame1
+            // 
+            this.textBoxVodGame1.Location = new System.Drawing.Point(17, 6);
+            this.textBoxVodGame1.Name = "textBoxVodGame1";
+            this.textBoxVodGame1.Size = new System.Drawing.Size(103, 20);
+            this.textBoxVodGame1.TabIndex = 1;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(128, 9);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(13, 13);
+            this.label18.TabIndex = 104;
+            this.label18.Text = "3";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 35);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(13, 13);
+            this.label17.TabIndex = 106;
+            this.label17.Text = "2";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(3, 9);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(13, 13);
+            this.label16.TabIndex = 104;
+            this.label16.Text = "1";
+            // 
+            // checkBoxDetails
+            // 
+            this.checkBoxDetails.AutoSize = true;
+            this.checkBoxDetails.Checked = true;
+            this.checkBoxDetails.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxDetails.Location = new System.Drawing.Point(381, 8);
+            this.checkBoxDetails.Name = "checkBoxDetails";
+            this.checkBoxDetails.Size = new System.Drawing.Size(129, 17);
+            this.checkBoxDetails.TabIndex = 104;
+            this.checkBoxDetails.Text = "Always include details";
+            this.checkBoxDetails.UseVisualStyleBackColor = true;
+            // 
             // MatchDetailFiller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 411);
+            this.Controls.Add(this.checkBoxDetails);
             this.Controls.Add(this.buttonTrim);
+            this.Controls.Add(this.tabControlVod);
             this.Controls.Add(this.comboBoxGame);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.richTextBoxOutput);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonFill);
-            this.Controls.Add(this.textBoxYoutube);
             this.Controls.Add(this.textBoxDate);
             this.Controls.Add(this.textBoxMatch);
             this.Controls.Add(this.tabControlType);
             this.MinimumSize = new System.Drawing.Size(562, 450);
             this.Name = "MatchDetailFiller";
-            this.Text = "Bracket Match Filler v2.3.1";
+            this.Text = "Bracket Match Filler v2.4.0";
             this.tabControlType.ResumeLayout(false);
             this.tabPageSingles.ResumeLayout(false);
             this.tabPageSingles.PerformLayout();
             this.tabPageDoubles.ResumeLayout(false);
             this.tabPageDoubles.PerformLayout();
+            this.tabControlVod.ResumeLayout(false);
+            this.tabPageVodSingle.ResumeLayout(false);
+            this.tabPageVodSingle.PerformLayout();
+            this.tabPageVodMultiple.ResumeLayout(false);
+            this.tabPageVodMultiple.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -396,9 +592,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxYoutube;
+        private System.Windows.Forms.TextBox textBoxVodSet1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBoxGame;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button buttonTrim;
@@ -420,6 +615,25 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBoxDate;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TabControl tabControlVod;
+        private System.Windows.Forms.TabPage tabPageVodSingle;
+        private System.Windows.Forms.TabPage tabPageVodMultiple;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBoxVodSet2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox checkBoxDetails;
+        private System.Windows.Forms.TextBox textBoxVodGame6;
+        private System.Windows.Forms.TextBox textBoxVodGame4;
+        private System.Windows.Forms.TextBox textBoxVodGame2;
+        private System.Windows.Forms.TextBox textBoxVodGame5;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBoxVodGame3;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBoxVodGame1;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
     }
 }
 

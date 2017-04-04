@@ -20,7 +20,10 @@ namespace Match_Detail_Filler
         static string CHAR = "char";
         static string WIN = "win";
         static string DATE = "date";
-        static string DETAILS = "details={{BracketMatchDetails|reddit=|comment=|vod=";
+        static string DETAILS = "details={{BracketMatchDetails|reddit=|comment=";
+        static string VOD = "vod";
+        static string VOD2 = "vod2";
+        static string VODGAME = "vodgame";
 
         // Cue banner text
         static string DEFAULT_HEADER_T1P1 = "Team 1 P1";
@@ -49,12 +52,17 @@ namespace Match_Detail_Filler
         AutoCompleteStringCollection pmStageAutoComplete;
         AutoCompleteStringCollection sfvCharacterAutoCompleteList;
 
-        string[] meleeStages = new string[] { "Dream Land", "Final Destination", "Pokémon Stadium", "Battlefield", "Fountain of Dreams", "Yoshi's Story" };
+        string[] meleeStages = new string[] { "Dream Land", "Final Destination", "Pokémon Stadium", "Battlefield", "Fountain of Dreams", "Yoshi's Story", "Brinstar", "Jungle Japes", "Kongo Jungle", "Rainbow Cruise", "Onett", "Mute City", "Corneria" };
         string[] wiiuStages = new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land (64)", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower", "Pokémon Stadium 2",
                                              "Ω Palutena's Temple", "Ω Gaur Plain", "Ω Orbital Gate Assault", "Ω Mushroom Kingdom U", "Ω Mario Galaxy", "Ω Kalos Pokémon League"};
         string[] pmStages = new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls", "Lylat Cruise" };
         string[] ssbStages = new string[] { "Dream Land", "Hyrule Castle", "Peach's Castle", "Congo Jungle", "Planet Zebes", "Saffron City" };
         string[] currentStageList;
+
+        // A list of all vod textboxes
+        List<TextBox> vodSetList = new List<TextBox>();
+        List<TextBox> vodGameList = new List<TextBox>();
+
         // A "matrix" of all generated textboxes in the tab control
         List<TextBox[]> matchList = new List<TextBox[]>();
 
@@ -62,6 +70,16 @@ namespace Match_Detail_Filler
         public MatchDetailFiller()
         {
             InitializeComponent();
+
+            // Add all vod textboxes to vodList
+            vodSetList.Add(textBoxVodSet1);
+            vodSetList.Add(textBoxVodSet2);
+            vodGameList.Add(textBoxVodGame1);
+            vodGameList.Add(textBoxVodGame2);
+            vodGameList.Add(textBoxVodGame3);
+            vodGameList.Add(textBoxVodGame4);
+            vodGameList.Add(textBoxVodGame5);
+            vodGameList.Add(textBoxVodGame6);
 
             // Set cue text for textbox headers
             SetCueText(textBoxHeaderT1P1, DEFAULT_HEADER_T1P1);
@@ -218,14 +236,46 @@ namespace Match_Detail_Filler
                 matchNumber++;
             }
 
-            if (textBoxDate.Text != string.Empty)
+            if (textBoxDate.Text != string.Empty || checkBoxDetails.Checked)
             {
                 output += "|" + textBoxMatch.Text + DATE + "=" + textBoxDate.Text + "\r\n";
             }
 
-            if (textBoxYoutube.Text != string.Empty)
+            bool vodExists = false;
+            string details = DETAILS;
+            if (tabControlVod.SelectedIndex == 0)
             {
-                output += "|" + textBoxMatch.Text + DETAILS + textBoxYoutube.Text + "}}";
+                if (textBoxVodSet1.Text != string.Empty)
+                {
+                    details += "|" + VOD +  "=" + textBoxVodSet1.Text;
+                    vodExists = true;
+                }
+
+                if (textBoxVodSet2.Text != string.Empty)
+                {
+                    details += "|" + VOD2 + "=" + textBoxVodSet2.Text;
+                    vodExists = true;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < vodGameList.Count; i++)
+                {
+                    if (vodGameList[i].Text != string.Empty)
+                    {
+                        details += "|" + VODGAME + (i + 1) + "=" + vodGameList[i].Text;
+                        vodExists = true;
+                    }
+                }
+            }
+
+            if (vodExists)
+            {
+                output += details + "}}";
+            }
+            else if (checkBoxDetails.Checked)
+            {
+                output += details + "|" + VOD + "=}}";
             }
 
             richTextBoxOutput.Text = output.Trim();
@@ -235,30 +285,61 @@ namespace Match_Detail_Filler
         private void buttonClear_Click(object sender, EventArgs e)
         {
             textBoxMatch.Clear();
-            textBoxYoutube.Clear();
             richTextBoxOutput.Clear();
+
+            foreach (TextBox box in vodSetList)
+            {
+                box.Text = string.Empty;
+            }
+
+            foreach (TextBox box in vodGameList)
+            {
+                box.Text = string.Empty;
+            }
 
             foreach (TextBox box in tabControlType.SelectedTab.Controls.OfType<TextBox>())
             {
-                box.Clear();
+                box.Text = string.Empty;
             }
+
+            comboBoxGame_SelectedValueChanged(comboBoxGame, new EventArgs());
         }
 
         // Trim youtube URLs to remove playlists and other such things
         private void buttonTrim_Click(object sender, EventArgs e)
         {
-            int pos = textBoxYoutube.Text.IndexOf("&");
-
-            if (pos != -1)
+            if (tabControlVod.SelectedIndex == 0)
             {
-                textBoxYoutube.Text = textBoxYoutube.Text.Substring(0, pos);
+                foreach (TextBox box in vodSetList)
+                {
+                    TrimURL(box);
+                }
+            }
+            else
+            {
+                foreach (TextBox box in vodGameList)
+                {
+                    TrimURL(box);
+                }
             }
 
-            pos = textBoxYoutube.Text.IndexOf("?list");
+            
+        }
+
+        private void TrimURL(TextBox box)
+        {
+            int pos = box.Text.IndexOf("&");
 
             if (pos != -1)
             {
-                textBoxYoutube.Text = textBoxYoutube.Text.Substring(0, pos);
+                box.Text = box.Text.Substring(0, pos);
+            }
+
+            pos = box.Text.IndexOf("?list");
+
+            if (pos != -1)
+            {
+                box.Text = box.Text.Substring(0, pos);
             }
         }
         #endregion

@@ -568,7 +568,7 @@
             this.Controls.Add(this.tabControlType);
             this.MinimumSize = new System.Drawing.Size(562, 450);
             this.Name = "MatchDetailFiller";
-            this.Text = "Bracket Match Filler v2.4.0";
+            this.Text = "Bracket Match Filler v2.4.1";
             this.tabControlType.ResumeLayout(false);
             this.tabPageSingles.ResumeLayout(false);
             this.tabPageSingles.PerformLayout();

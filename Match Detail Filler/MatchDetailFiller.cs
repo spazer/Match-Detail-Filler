@@ -14,11 +14,6 @@ namespace Match_Detail_Filler
     public partial class MatchDetailFiller : Form
     {
         // Liquipedia parameters
-        static string PLAYER1 = "p1";
-        static string PLAYER2 = "p2";
-        static string STOCK = "stock";
-        static string CHAR = "char";
-        static string WIN = "win";
         static string DATE = "date";
         static string DETAILS = "details={{BracketMatchDetails|reddit=|comment=";
         static string VOD = "vod";
@@ -45,16 +40,6 @@ namespace Match_Detail_Filler
         static int TAB_NUMBER = 9;      // Where the generated textboxes' tab index should start being numbered from
 
         static string[] playerSlots = { COMBOBOX_ENTRY_T1P1, COMBOBOX_ENTRY_T1P2, COMBOBOX_ENTRY_T2P1, COMBOBOX_ENTRY_T2P2 };
-
-        int[] teams = new int[4];
-        int p1;
-        int p2;
-        int p3;
-        int p4;
-        int stocks;
-        int invalid = 0;
-
-        string order;
 
         enum SinglesField { p1char, p2char, stage, p1score, p2score }
         enum DoublesField { t1p1char, t1p2char, t2p1char, t2p2char, stage, t1p1score, t1p2score, t2p1score, t2p2score }

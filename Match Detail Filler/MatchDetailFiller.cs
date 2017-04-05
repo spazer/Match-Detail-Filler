@@ -23,10 +23,10 @@ namespace Match_Detail_Filler
         static string DETAILS = "details={{BracketMatchDetails|reddit=|comment=|vod=";
 
         // Cue banner text
-        static string DEFAULT_HEADER_T1P1 = "Team 1 P1";
-        static string DEFAULT_HEADER_T1P2 = "Team 1 P2";
-        static string DEFAULT_HEADER_T2P1 = "Team 2 P1";
-        static string DEFAULT_HEADER_T2P2 = "Team 2 P2";
+        static string DEFAULT_HEADER_T1P1 = "Player 1";
+        static string DEFAULT_HEADER_T1P2 = "Player 2";
+        static string DEFAULT_HEADER_T2P1 = "Player 3";
+        static string DEFAULT_HEADER_T2P2 = "Player 4";
         static string DEFAULT_HEADER_P1 = "Player 1";
         static string DEFAULT_HEADER_P2 = "Player 2";
 
@@ -34,7 +34,17 @@ namespace Match_Detail_Filler
         static int SINGLES_HEIGHT = 5;  // Number of textboxes in a column for the singles tab
         static int DOUBLES_WIDTH = 9;   // Number of textboxes in a row for the doubles tab
         static int DOUBLES_HEIGHT = 5;  // Number of textboxes in a column for the doubles tab
-        static int TAB_NUMBER = 6;      // Where the generated textboxes' tab index should start being numbered from
+        static int TAB_NUMBER = 9;      // Where the generated textboxes' tab index should start being numbered from
+
+        int[] teams = new int[4];
+        int p1;
+        int p2;
+        int p3;
+        int p4;
+        int stocks;
+        int invalid = 0;
+
+        string order;
 
         enum SinglesField { p1char, p2char, stage, p1score, p2score }
         enum DoublesField { t1p1char, t1p2char, t2p1char, t2p2char, stage, t1p1score, t1p2score, t2p1score, t2p2score }
@@ -79,6 +89,30 @@ namespace Match_Detail_Filler
             comboBoxGame.Items.Add("Project M");
             comboBoxGame.Items.Add("SFV");
 
+            comboBoxPlayer1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayer1.Items.Add("Team 1 Player 1");
+            comboBoxPlayer1.Items.Add("Team 1 Player 2");
+            comboBoxPlayer1.Items.Add("Team 2 Player 1");
+            comboBoxPlayer1.Items.Add("Team 2 Player 2");
+
+            comboBoxPlayer2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayer2.Items.Add("Team 1 Player 1");
+            comboBoxPlayer2.Items.Add("Team 1 Player 2");
+            comboBoxPlayer2.Items.Add("Team 2 Player 1");
+            comboBoxPlayer2.Items.Add("Team 2 Player 2");
+
+            comboBoxPlayer3.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayer3.Items.Add("Team 1 Player 1");
+            comboBoxPlayer3.Items.Add("Team 1 Player 2");
+            comboBoxPlayer3.Items.Add("Team 2 Player 1");
+            comboBoxPlayer3.Items.Add("Team 2 Player 2");
+
+            comboBoxPlayer4.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayer4.Items.Add("Team 1 Player 1");
+            comboBoxPlayer4.Items.Add("Team 1 Player 2");
+            comboBoxPlayer4.Items.Add("Team 2 Player 1");
+            comboBoxPlayer4.Items.Add("Team 2 Player 2");
+
             // Create character and stage autocompletes for all games
             meleeCharacterAutoCompleteList = new AutoCompleteStringCollection();
             meleeCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "puff", "cf", "ness", "peach", "bowser", "doc", "zelda", "sheik", "ganon", "yl", "falco", "mewtwo", "pichu", "ic", "game and watch", "marth", "roy" });
@@ -112,6 +146,10 @@ namespace Match_Detail_Filler
 
             // Set the game
             comboBoxGame.SelectedItem = "Melee";
+            comboBoxPlayer1.SelectedItem = "Team 1 Player 1";
+            comboBoxPlayer2.SelectedItem = "Team 1 Player 2";
+            comboBoxPlayer3.SelectedItem = "Team 2 Player 1";
+            comboBoxPlayer4.SelectedItem = "Team 2 Player 2";
         }
 
         #region Buttons
@@ -183,7 +221,452 @@ namespace Match_Detail_Filler
                 {
                     if (match[(int)DoublesField.stage].Text != string.Empty)
                     {
-                        output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+
+                        switch (comboBoxPlayer1.SelectedItem.ToString())
+                        {
+                            case "Team 1 Player 1":
+                                teams[0] = 1;
+                                break;
+
+                            case "Team 1 Player 2":
+                                teams[0] = 2;
+                                break;
+
+                            case "Team 2 Player 1":
+                                teams[0] = 3;
+                                break;
+
+                            case "Team 2 Player 2":
+                                teams[0] = 4;
+                                break;
+                        }
+
+                        switch (comboBoxPlayer2.SelectedItem.ToString())
+                        {
+                            case "Team 1 Player 1":
+                                teams[1] = 1;
+                                break;
+
+                            case "Team 1 Player 2":
+                                teams[1] = 2;
+                                break;
+
+                            case "Team 2 Player 1":
+                                teams[1] = 3;
+                                break;
+
+                            case "Team 2 Player 2":
+                                teams[1] = 4;
+                                break;
+                        }
+
+                        switch (comboBoxPlayer3.SelectedItem.ToString())
+                        {
+                            case "Team 1 Player 1":
+                                teams[2] = 1;
+                                break;
+
+                            case "Team 1 Player 2":
+                                teams[2] = 2;
+                                break;
+
+                            case "Team 2 Player 1":
+                                teams[2] = 3;
+                                break;
+
+                            case "Team 2 Player 2":
+                                teams[2] = 4;
+                                break;
+                        }
+
+                        switch (comboBoxPlayer4.SelectedItem.ToString())
+                        {
+                            case "Team 1 Player 1":
+                                teams[3] = 1;
+                                break;
+
+                            case "Team 1 Player 2":
+                                teams[3] = 2;
+                                break;
+
+                            case "Team 2 Player 1":
+                                teams[3] = 3;
+                                break;
+
+                            case "Team 2 Player 2":
+                                teams[3] = 4;
+                                break;
+                        }
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            if (i == 0)
+                            {
+                                p1 = teams[i];
+                            }
+
+                            else if (i == 1)
+                            {
+                                p2 = teams[i];
+                            }
+
+                            else if (i == 2)
+                            {
+                                p3 = teams[i];
+                            }
+
+                            else if (i == 3)
+                            {
+                                p4 = teams[i];
+                            }
+                        }
+                        order = p1.ToString() + p2.ToString() + p3.ToString() + p4.ToString();
+
+                         switch (order)
+                        {
+                            case "1234":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t1p2score].Text);
+                                break;
+
+                            case "1243":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t1p2score].Text);
+                                break;
+
+                            case "1324":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t2p1score].Text);
+                                break;
+
+                            case "1342":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "1423":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t2p1score].Text);
+                                break;
+
+                            case "1432":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "2134":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t1p2score].Text);
+                                break;
+
+                            case "2143":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t1p2score].Text);
+                                break;
+
+                            case "2314":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t2p1score].Text);
+                                break;
+
+                            case "2341":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "2413":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t2p1score].Text);
+                                break;
+
+                            case "2431":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "3124":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p2score].Text) + int.Parse(match[(int)DoublesField.t2p1score].Text);
+                                break;
+
+                            case "3142":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p2score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "3214":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p2score].Text) + int.Parse(match[(int)DoublesField.t2p1score].Text);
+                                break;
+
+                            case "3241":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p2score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "3412":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t2p1score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "3421":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t2p1score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "4123":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p2score].Text) + int.Parse(match[(int)DoublesField.t2p1score].Text);
+                                break;
+
+                            case "4132":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p2score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "4213":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p2score].Text) + int.Parse(match[(int)DoublesField.t2p1score].Text);
+                                break;
+
+                            case "4231":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t1p2score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "4312":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t2p1score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            case "4321":
+                                output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + "\r\n";
+
+                                output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
+                                output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
+
+                                stocks = int.Parse(match[(int)DoublesField.t2p1score].Text) + int.Parse(match[(int)DoublesField.t2p2score].Text);
+                                break;
+
+                            default:
+                                output += "Invalid player order!";
+                                invalid = 1;
+                                break;
+                        }
+
+                        /*output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
                         output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
                         output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
                         output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
@@ -191,27 +674,30 @@ namespace Match_Detail_Filler
                         output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
                         output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
                         output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
-                        output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";*/
 
 
-                        if (match[(int)DoublesField.t1p1score].Text != string.Empty && match[(int)DoublesField.t1p2score].Text != string.Empty &&
-                            match[(int)DoublesField.t2p1score].Text != string.Empty && match[(int)DoublesField.t2p2score].Text != string.Empty)
+                        if (invalid == 0)
                         {
-                            if (int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t1p2score].Text) > 0)
+                            if (match[(int)DoublesField.t1p1score].Text != string.Empty && match[(int)DoublesField.t1p2score].Text != string.Empty &&
+                                match[(int)DoublesField.t2p1score].Text != string.Empty && match[(int)DoublesField.t2p2score].Text != string.Empty)
                             {
-                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                                if (stocks > 0)
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                                }
+                                else
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                                }
                             }
                             else
                             {
-                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
                             }
-                        }
-                        else
-                        {
-                            output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
-                        }
 
-                        output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)DoublesField.stage].Text + "\r\n";
+                            output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)DoublesField.stage].Text + "\r\n";
+                        }
                     }
                 }
 
@@ -551,9 +1037,12 @@ namespace Match_Detail_Filler
             if (tabControlType.SelectedTab.Text == "Singles")
             {
                 // Set form width
-                this.MinimumSize = new Size(562, 450);
+                this.MinimumSize = new Size(562, 480);
                 this.Width = 562;
 
+                // Set tab box size
+                this.tabControlType.Size = new System.Drawing.Size(520, 190);
+                
                 // Set base textbox properties
                 for (int i = 0; i < SINGLES_HEIGHT; i++)
                 {
@@ -618,8 +1107,11 @@ namespace Match_Detail_Filler
             else
             {
                 // Set form width
-                this.Width = 802;
-                this.MinimumSize = new Size(802, 450);
+                this.Width = 800;
+                this.MinimumSize = new Size(800, 480);
+
+                // Set box size
+                this.tabControlType.Size = new System.Drawing.Size(760, 220);
 
                 // Set base textbox properties
                 for (int i = 0; i < DOUBLES_HEIGHT; i++)
@@ -658,7 +1150,7 @@ namespace Match_Detail_Filler
                         }
 
                         newTextBox.Height = 20;
-                        newTextBox.Top = 32 + 26 * i;
+                        newTextBox.Top = 58 + 26 * i;
 
                         // Keep track of the last textbox position
                         lastLeft = newTextBox.Left + newTextBox.Width;

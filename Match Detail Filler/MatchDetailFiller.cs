@@ -241,8 +241,8 @@ namespace Match_Detail_Filler
                         doublesPlayerList = doublesPlayerList.OrderBy(x => x.player.SelectedItem).ToList();
 
                         // Output each player and score
-                        output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + doublesPlayerList[0].charList[matchNumber-1].Text + " ";
-                        output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + doublesPlayerList[0].scoreList[matchNumber-1].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + doublesPlayerList[0].charList[matchNumber - 1].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + doublesPlayerList[0].scoreList[matchNumber - 1].Text + " ";
                         output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + doublesPlayerList[1].charList[matchNumber - 1].Text + " ";
                         output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + doublesPlayerList[1].scoreList[matchNumber - 1].Text + "\r\n";
 
@@ -254,7 +254,8 @@ namespace Match_Detail_Filler
                         if (match[(int)DoublesField.t1p1score].Text != string.Empty && match[(int)DoublesField.t1p2score].Text != string.Empty &&
                             match[(int)DoublesField.t2p1score].Text != string.Empty && match[(int)DoublesField.t2p2score].Text != string.Empty)
                         {
-                            if (stocks > 0)
+                            if (int.Parse(doublesPlayerList[0].scoreList[matchNumber - 1].Text) + int.Parse(doublesPlayerList[1].scoreList[matchNumber - 1].Text) >
+                                int.Parse(doublesPlayerList[2].scoreList[matchNumber - 1].Text) + int.Parse(doublesPlayerList[3].scoreList[matchNumber - 1].Text))
                             {
                                 output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
                             }

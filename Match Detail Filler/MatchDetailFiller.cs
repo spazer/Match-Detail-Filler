@@ -26,18 +26,35 @@ namespace Match_Detail_Filler
         static string VODGAME = "vodgame";
 
         // Cue banner text
-        static string DEFAULT_HEADER_T1P1 = "Team 1 P1";
-        static string DEFAULT_HEADER_T1P2 = "Team 1 P2";
-        static string DEFAULT_HEADER_T2P1 = "Team 2 P1";
-        static string DEFAULT_HEADER_T2P2 = "Team 2 P2";
+        static string DEFAULT_HEADER_PORT1 = "Port 1";
+        static string DEFAULT_HEADER_PORT2 = "Port 2";
+        static string DEFAULT_HEADER_PORT3 = "Port 3";
+        static string DEFAULT_HEADER_PORT4 = "Port 4";
         static string DEFAULT_HEADER_P1 = "Player 1";
         static string DEFAULT_HEADER_P2 = "Player 2";
+
+        const string COMBOBOX_ENTRY_T1P1 = "T1 P1";
+        const string COMBOBOX_ENTRY_T1P2 = "T1 P2";
+        const string COMBOBOX_ENTRY_T2P1 = "T2 P1";
+        const string COMBOBOX_ENTRY_T2P2 = "T2 P2";
 
         static int SINGLES_WIDTH = 5;   // Number of textboxes in a row for the singles tab
         static int SINGLES_HEIGHT = 5;  // Number of textboxes in a column for the singles tab
         static int DOUBLES_WIDTH = 9;   // Number of textboxes in a row for the doubles tab
         static int DOUBLES_HEIGHT = 5;  // Number of textboxes in a column for the doubles tab
-        static int TAB_NUMBER = 6;      // Where the generated textboxes' tab index should start being numbered from
+        static int TAB_NUMBER = 9;      // Where the generated textboxes' tab index should start being numbered from
+
+        static string[] playerSlots = { COMBOBOX_ENTRY_T1P1, COMBOBOX_ENTRY_T1P2, COMBOBOX_ENTRY_T2P1, COMBOBOX_ENTRY_T2P2 };
+
+        int[] teams = new int[4];
+        int p1;
+        int p2;
+        int p3;
+        int p4;
+        int stocks;
+        int invalid = 0;
+
+        string order;
 
         enum SinglesField { p1char, p2char, stage, p1score, p2score }
         enum DoublesField { t1p1char, t1p2char, t2p1char, t2p2char, stage, t1p1score, t1p2score, t2p1score, t2p2score }
@@ -66,6 +83,13 @@ namespace Match_Detail_Filler
         // A "matrix" of all generated textboxes in the tab control
         List<TextBox[]> matchList = new List<TextBox[]>();
 
+        List<DoublesBoxAssociation> doublesPlayerList = new List<DoublesBoxAssociation>();
+
+        DoublesBoxAssociation t1p1 = new DoublesBoxAssociation();
+        DoublesBoxAssociation t1p2 = new DoublesBoxAssociation();
+        DoublesBoxAssociation t2p1 = new DoublesBoxAssociation();
+        DoublesBoxAssociation t2p2 = new DoublesBoxAssociation();
+
         // Constructor
         public MatchDetailFiller()
         {
@@ -82,10 +106,10 @@ namespace Match_Detail_Filler
             vodGameList.Add(textBoxVodGame6);
 
             // Set cue text for textbox headers
-            SetCueText(textBoxHeaderT1P1, DEFAULT_HEADER_T1P1);
-            SetCueText(textBoxHeaderT1P2, DEFAULT_HEADER_T1P2);
-            SetCueText(textBoxHeaderT2P1, DEFAULT_HEADER_T2P1);
-            SetCueText(textBoxHeaderT2P2, DEFAULT_HEADER_T2P2);
+            SetCueText(textBoxHeaderT1P1, DEFAULT_HEADER_PORT1);
+            SetCueText(textBoxHeaderT1P2, DEFAULT_HEADER_PORT2);
+            SetCueText(textBoxHeaderT2P1, DEFAULT_HEADER_PORT3);
+            SetCueText(textBoxHeaderT2P2, DEFAULT_HEADER_PORT4);
             SetCueText(textBoxHeaderP1, DEFAULT_HEADER_P1);
             SetCueText(textBoxHeaderP2, DEFAULT_HEADER_P2);
 
@@ -96,6 +120,16 @@ namespace Match_Detail_Filler
             comboBoxGame.Items.Add("64");
             comboBoxGame.Items.Add("Project M");
             comboBoxGame.Items.Add("SFV");
+
+            // Initialize player slots
+            comboBoxPlayer1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayer1.Items.AddRange(playerSlots);
+            comboBoxPlayer2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayer2.Items.AddRange(playerSlots);
+            comboBoxPlayer3.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayer3.Items.AddRange(playerSlots);
+            comboBoxPlayer4.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlayer4.Items.AddRange(playerSlots);
 
             // Create character and stage autocompletes for all games
             meleeCharacterAutoCompleteList = new AutoCompleteStringCollection();
@@ -130,6 +164,24 @@ namespace Match_Detail_Filler
 
             // Set the game
             comboBoxGame.SelectedItem = "Melee";
+
+            // Set the player slots
+            comboBoxPlayer1.SelectedItem = COMBOBOX_ENTRY_T1P1;
+            comboBoxPlayer2.SelectedItem = COMBOBOX_ENTRY_T1P2;
+            comboBoxPlayer3.SelectedItem = COMBOBOX_ENTRY_T2P1;
+            comboBoxPlayer4.SelectedItem = COMBOBOX_ENTRY_T2P2;
+
+            t1p1.player = comboBoxPlayer1;
+            t1p2.player = comboBoxPlayer2;
+            t2p1.player = comboBoxPlayer3;
+            t2p2.player = comboBoxPlayer4;
+
+            doublesPlayerList.Add(t1p1);
+            doublesPlayerList.Add(t1p2);
+            doublesPlayerList.Add(t2p1);
+            doublesPlayerList.Add(t2p2);
+
+            AddIndexChangeEventsToPlayerComboBoxes();
         }
 
         #region Buttons
@@ -201,21 +253,26 @@ namespace Match_Detail_Filler
                 {
                     if (match[(int)DoublesField.stage].Text != string.Empty)
                     {
-                        output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + match[(int)DoublesField.t1p1char].Text + " ";
-                        output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + match[(int)DoublesField.t1p1score].Text + " ";
-                        output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + match[(int)DoublesField.t1p2char].Text + " ";
-                        output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + match[(int)DoublesField.t1p2score].Text + "\r\n";
+                        // Error check
+                        if (CheckComboBoxEntryIntegrity(doublesPlayerList) != string.Empty) richTextBoxOutput.Text = "Invalid Entry";
+                        doublesPlayerList = doublesPlayerList.OrderBy(x => x.player.SelectedItem).ToList();
 
-                        output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + match[(int)DoublesField.t2p1char].Text + " ";
-                        output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + match[(int)DoublesField.t2p1score].Text + " ";
-                        output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + match[(int)DoublesField.t2p2char].Text + " ";
-                        output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + match[(int)DoublesField.t2p2score].Text + " ";
+                        // Output each player and score
+                        output += "|" + textBoxMatch.Text + "t1p1char" + matchNumber + "=" + doublesPlayerList[0].charList[matchNumber - 1].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t1p1stock" + matchNumber + "=" + doublesPlayerList[0].scoreList[matchNumber - 1].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t1p2char" + matchNumber + "=" + doublesPlayerList[1].charList[matchNumber - 1].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t1p2stock" + matchNumber + "=" + doublesPlayerList[1].scoreList[matchNumber - 1].Text + "\r\n";
 
+                        output += "|" + textBoxMatch.Text + "t2p1char" + matchNumber + "=" + doublesPlayerList[2].charList[matchNumber - 1].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t2p1stock" + matchNumber + "=" + doublesPlayerList[2].scoreList[matchNumber - 1].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t2p2char" + matchNumber + "=" + doublesPlayerList[3].charList[matchNumber - 1].Text + " ";
+                        output += "|" + textBoxMatch.Text + "t2p2stock" + matchNumber + "=" + doublesPlayerList[3].scoreList[matchNumber - 1].Text + " ";
 
                         if (match[(int)DoublesField.t1p1score].Text != string.Empty && match[(int)DoublesField.t1p2score].Text != string.Empty &&
                             match[(int)DoublesField.t2p1score].Text != string.Empty && match[(int)DoublesField.t2p2score].Text != string.Empty)
                         {
-                            if (int.Parse(match[(int)DoublesField.t1p1score].Text) + int.Parse(match[(int)DoublesField.t1p2score].Text) > 0)
+                            if (int.Parse(doublesPlayerList[0].scoreList[matchNumber - 1].Text) + int.Parse(doublesPlayerList[1].scoreList[matchNumber - 1].Text) >
+                                int.Parse(doublesPlayerList[2].scoreList[matchNumber - 1].Text) + int.Parse(doublesPlayerList[3].scoreList[matchNumber - 1].Text))
                             {
                                 output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
                             }
@@ -303,6 +360,13 @@ namespace Match_Detail_Filler
             }
 
             comboBoxGame_SelectedValueChanged(comboBoxGame, new EventArgs());
+
+            RemoveIndexChangeEventsToPlayerComboBoxes();
+            comboBoxPlayer1.SelectedItem = COMBOBOX_ENTRY_T1P1;
+            comboBoxPlayer2.SelectedItem = COMBOBOX_ENTRY_T1P2;
+            comboBoxPlayer3.SelectedItem = COMBOBOX_ENTRY_T2P1;
+            comboBoxPlayer4.SelectedItem = COMBOBOX_ENTRY_T2P2;
+            AddIndexChangeEventsToPlayerComboBoxes();
         }
 
         // Trim youtube URLs to remove playlists and other such things
@@ -632,9 +696,12 @@ namespace Match_Detail_Filler
             if (tabControlType.SelectedTab.Text == "Singles")
             {
                 // Set form width
-                this.MinimumSize = new Size(562, 450);
+                this.MinimumSize = new Size(562, 480);
                 this.Width = 562;
 
+                // Set tab box size
+                this.tabControlType.Size = new System.Drawing.Size(520, 190);
+                
                 // Set base textbox properties
                 for (int i = 0; i < SINGLES_HEIGHT; i++)
                 {
@@ -700,7 +767,10 @@ namespace Match_Detail_Filler
             {
                 // Set form width
                 this.Width = 802;
-                this.MinimumSize = new Size(802, 450);
+                this.MinimumSize = new Size(802, 480);
+
+                // Set box size
+                this.tabControlType.Size = new System.Drawing.Size(760, 220);
 
                 // Set base textbox properties
                 for (int i = 0; i < DOUBLES_HEIGHT; i++)
@@ -739,8 +809,11 @@ namespace Match_Detail_Filler
                             newTextBox.Left = lastLeft + 6;
                         }
 
+                        // Set groupings for characters and score
+                        SetDoublesBoxGroupings(ref newTextBox, (DoublesField)j);
+
                         newTextBox.Height = 20;
-                        newTextBox.Top = 32 + 26 * i;
+                        newTextBox.Top = 58 + 26 * i;
 
                         // Keep track of the last textbox position
                         lastLeft = newTextBox.Left + newTextBox.Width;
@@ -781,5 +854,142 @@ namespace Match_Detail_Filler
             SendMessage(control.Handle, EM_SETCUEBANNER, 0, text);
         }
         #endregion
+
+        /// <summary>
+        /// Reassigns doubles combobox values so that all values are filled
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBoxPlayer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox thisBox = (ComboBox)sender;
+
+            // If no dupes exist, return
+            string missingSlot = CheckComboBoxEntryIntegrity(doublesPlayerList);
+            if (missingSlot == string.Empty) return;
+
+            // Fill the duplicate combobox with the missing slot
+            foreach (DoublesBoxAssociation assoc in doublesPlayerList)
+            {
+                if (assoc.player == thisBox) continue;
+
+                if (assoc.player.SelectedItem == thisBox.SelectedItem)
+                {
+                    assoc.player.SelectedItem = missingSlot;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds the Index Changed event to Doubles comboboxes
+        /// </summary>
+        private void AddIndexChangeEventsToPlayerComboBoxes()
+        {
+            foreach (DoublesBoxAssociation assoc in doublesPlayerList)
+            {
+                assoc.player.SelectedIndexChanged += new EventHandler(comboBoxPlayer_SelectedIndexChanged);
+            }
+        }
+
+        /// <summary>
+        /// Removes the Index Changed event to Doubles comboboxes
+        /// </summary>
+        private void RemoveIndexChangeEventsToPlayerComboBoxes()
+        {
+            foreach (DoublesBoxAssociation assoc in doublesPlayerList)
+            {
+                assoc.player.SelectedIndexChanged -= comboBoxPlayer_SelectedIndexChanged;
+            }
+        }
+
+        /// <summary>
+        /// Checks if all doubles fields have been filled
+        /// </summary>
+        /// <param name="doublesPlayerList"></param>
+        /// <returns>The string of the missing field. Otherwise, an empty string is returned.</returns>
+        private string CheckComboBoxEntryIntegrity(List<DoublesBoxAssociation> doublesPlayerList)
+        {
+            // Find the missing value
+            bool t1p1_exists = false;
+            bool t1p2_exists = false;
+            bool t2p1_exists = false;
+            bool t2p2_exists = false;
+            foreach (DoublesBoxAssociation assoc in doublesPlayerList)
+            {
+                switch ((string)assoc.player.SelectedItem)
+                {
+                    case COMBOBOX_ENTRY_T1P1:
+                        t1p1_exists = true;
+                        break;
+                    case COMBOBOX_ENTRY_T1P2:
+                        t1p2_exists = true;
+                        break;
+                    case COMBOBOX_ENTRY_T2P1:
+                        t2p1_exists = true;
+                        break;
+                    case COMBOBOX_ENTRY_T2P2:
+                        t2p2_exists = true;
+                        break;
+                }
+            }
+
+            if (!t1p1_exists)
+            {
+                return COMBOBOX_ENTRY_T1P1;
+            }
+            else if (!t1p2_exists)
+            {
+                return COMBOBOX_ENTRY_T1P2;
+            }
+            else if (!t2p1_exists)
+            {
+                return COMBOBOX_ENTRY_T2P1;
+            }
+            else if (!t2p2_exists)
+            {
+                return COMBOBOX_ENTRY_T2P2;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Assigns textboxes to DoublesBoxAssociation items
+        /// </summary>
+        /// <param name="box"></param>
+        /// <param name="field"></param>
+        private void SetDoublesBoxGroupings(ref TextBox box, DoublesField field)
+        {
+            switch (field)
+            {
+                case DoublesField.t1p1char:
+                    t1p1.charList.Add(box);
+                    break;
+                case DoublesField.t1p2char:
+                    t1p2.charList.Add(box);
+                    break;
+                case DoublesField.t2p1char:
+                    t2p1.charList.Add(box);
+                    break;
+                case DoublesField.t2p2char:
+                    t2p2.charList.Add(box);
+                    break;
+                case DoublesField.t1p1score:
+                    t1p1.scoreList.Add(box);
+                    break;
+                case DoublesField.t1p2score:
+                    t1p2.scoreList.Add(box);
+                    break;
+                case DoublesField.t2p1score:
+                    t2p1.scoreList.Add(box);
+                    break;
+                case DoublesField.t2p2score:
+                    t2p2.scoreList.Add(box);
+                    break;
+            }
+        }
     }
 }

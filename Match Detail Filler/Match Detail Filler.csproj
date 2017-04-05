@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoublesBoxAssociation.cs" />
     <Compile Include="MatchDetailFiller.cs">
       <SubType>Form</SubType>
     </Compile>

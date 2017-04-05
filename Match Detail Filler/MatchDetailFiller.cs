@@ -724,6 +724,7 @@ namespace Match_Detail_Filler
                         if (j == (int)DoublesField.stage)
                         {
                             newTextBox.Leave += new EventHandler(textBoxStage_Leave);
+                            newTextBox.KeyUp += new KeyEventHandler(textBoxStage_KeyUp);
                         }
 
                         // Score/stock textboxes need to be smaller

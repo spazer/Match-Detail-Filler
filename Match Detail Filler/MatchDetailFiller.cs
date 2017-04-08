@@ -256,14 +256,27 @@ namespace Match_Detail_Filler
                         if (match[(int)DoublesField.t1p1score].Text != string.Empty && match[(int)DoublesField.t1p2score].Text != string.Empty &&
                             match[(int)DoublesField.t2p1score].Text != string.Empty && match[(int)DoublesField.t2p2score].Text != string.Empty)
                         {
-                            if (int.Parse(doublesPlayerList[0].scoreList[matchNumber - 1].Text) + int.Parse(doublesPlayerList[1].scoreList[matchNumber - 1].Text) >
-                                int.Parse(doublesPlayerList[2].scoreList[matchNumber - 1].Text) + int.Parse(doublesPlayerList[3].scoreList[matchNumber - 1].Text))
+                            int score1 = 0;
+                            int score2 = 0;
+                            int score3 = 0;
+                            int score4 = 0;
+
+                            int.TryParse(doublesPlayerList[0].scoreList[matchNumber - 1].Text, out score1);
+                            int.TryParse(doublesPlayerList[1].scoreList[matchNumber - 1].Text, out score2);
+                            int.TryParse(doublesPlayerList[2].scoreList[matchNumber - 1].Text, out score3);
+                            int.TryParse(doublesPlayerList[3].scoreList[matchNumber - 1].Text, out score4);
+
+                            if (score1 + score2 > score3 + score4)
                             {
                                 output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
                             }
-                            else
+                            else if (score1 + score2 < score3 + score4)
                             {
                                 output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                            }
+                            else
+                            {
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
                             }
                         }
                         else

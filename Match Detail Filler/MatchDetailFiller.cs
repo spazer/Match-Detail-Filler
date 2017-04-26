@@ -770,6 +770,16 @@ namespace Match_Detail_Filler
                 // Set box size
                 this.tabControlType.Size = new System.Drawing.Size(760, 220);
 
+                // Clear all residual doubles textbox associations
+                t1p1.charList.Clear();
+                t1p2.charList.Clear();
+                t2p1.charList.Clear();
+                t2p2.charList.Clear();
+                t1p1.scoreList.Clear();
+                t1p2.scoreList.Clear();
+                t2p1.scoreList.Clear();
+                t2p2.scoreList.Clear();
+
                 // Set base textbox properties
                 for (int i = 0; i < DOUBLES_HEIGHT; i++)
                 {

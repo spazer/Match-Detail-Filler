@@ -166,7 +166,7 @@ namespace Match_Detail_Filler
             doublesPlayerList.Add(t2p1);
             doublesPlayerList.Add(t2p2);
 
-            AddIndexChangeEventsToPlayerComboBoxes();
+            AddEventsToPlayerComboBoxes();
         }
 
         #region Buttons
@@ -357,14 +357,20 @@ namespace Match_Detail_Filler
                 box.Text = string.Empty;
             }
 
+            // Reload game selection
             comboBoxGame_SelectedValueChanged(comboBoxGame, new EventArgs());
 
-            RemoveIndexChangeEventsToPlayerComboBoxes();
+            // Refresh selected player for doubles
+            RemoveEventsToPlayerComboBoxes();
             comboBoxPlayer1.SelectedItem = COMBOBOX_ENTRY_T1P1;
+            comboBoxPlayer1.BackColor = Color.LightPink;
             comboBoxPlayer2.SelectedItem = COMBOBOX_ENTRY_T1P2;
+            comboBoxPlayer2.BackColor = Color.LightPink;
             comboBoxPlayer3.SelectedItem = COMBOBOX_ENTRY_T2P1;
+            comboBoxPlayer3.BackColor = Color.LightPink;
             comboBoxPlayer4.SelectedItem = COMBOBOX_ENTRY_T2P2;
-            AddIndexChangeEventsToPlayerComboBoxes();
+            comboBoxPlayer4.BackColor = Color.LightPink;
+            AddEventsToPlayerComboBoxes();
         }
 
         // Trim youtube URLs to remove playlists and other such things
@@ -771,14 +777,10 @@ namespace Match_Detail_Filler
                 this.tabControlType.Size = new System.Drawing.Size(760, 220);
 
                 // Clear all residual doubles textbox associations
-                t1p1.charList.Clear();
-                t1p2.charList.Clear();
-                t2p1.charList.Clear();
-                t2p2.charList.Clear();
-                t1p1.scoreList.Clear();
-                t1p2.scoreList.Clear();
-                t2p1.scoreList.Clear();
-                t2p2.scoreList.Clear();
+                t1p1.Clear();
+                t1p2.Clear();
+                t2p1.Clear();
+                t2p2.Clear();
 
                 // Set base textbox properties
                 for (int i = 0; i < DOUBLES_HEIGHT; i++)
@@ -847,6 +849,9 @@ namespace Match_Detail_Filler
 
             // Add autocomplete for all relevant textboxes
             comboBoxGame_SelectedValueChanged(comboBoxGame, new EventArgs());
+
+            // Clear data
+            buttonClear_Click(this, new EventArgs());
         }
 
         #region Cue Banner
@@ -890,24 +895,39 @@ namespace Match_Detail_Filler
         }
 
         /// <summary>
+        /// Change the combobox color from pink to window-colored
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBoxPlayer_Click(object sender, EventArgs e)
+        {
+            ComboBox thisBox = (ComboBox)sender;
+
+            // Change the background color of the combobox to the window color
+            thisBox.BackColor = SystemColors.Window;
+        }
+
+        /// <summary>
         /// Adds the Index Changed event to Doubles comboboxes
         /// </summary>
-        private void AddIndexChangeEventsToPlayerComboBoxes()
+        private void AddEventsToPlayerComboBoxes()
         {
             foreach (DoublesBoxAssociation assoc in doublesPlayerList)
             {
                 assoc.player.SelectedIndexChanged += new EventHandler(comboBoxPlayer_SelectedIndexChanged);
+                assoc.player.Click += new EventHandler(comboBoxPlayer_Click);
             }
         }
 
         /// <summary>
         /// Removes the Index Changed event to Doubles comboboxes
         /// </summary>
-        private void RemoveIndexChangeEventsToPlayerComboBoxes()
+        private void RemoveEventsToPlayerComboBoxes()
         {
             foreach (DoublesBoxAssociation assoc in doublesPlayerList)
             {
                 assoc.player.SelectedIndexChanged -= comboBoxPlayer_SelectedIndexChanged;
+                assoc.player.Click -= comboBoxPlayer_Click;
             }
         }
 

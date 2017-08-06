@@ -18,5 +18,11 @@ namespace Match_Detail_Filler
             charList = new List<TextBox>();
             scoreList = new List<TextBox>();
         }
+
+        public void Clear()
+        {
+            charList.Clear();
+            scoreList.Clear();
+        }
     }
 }

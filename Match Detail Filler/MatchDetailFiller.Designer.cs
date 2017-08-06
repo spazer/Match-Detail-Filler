@@ -183,6 +183,7 @@
             // 
             // comboBoxPlayer1
             // 
+            this.comboBoxPlayer1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxPlayer1.FormattingEnabled = true;
             this.comboBoxPlayer1.Location = new System.Drawing.Point(6, 5);
             this.comboBoxPlayer1.Name = "comboBoxPlayer1";
@@ -191,6 +192,7 @@
             // 
             // comboBoxPlayer2
             // 
+            this.comboBoxPlayer2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxPlayer2.FormattingEnabled = true;
             this.comboBoxPlayer2.Location = new System.Drawing.Point(112, 5);
             this.comboBoxPlayer2.Name = "comboBoxPlayer2";
@@ -199,6 +201,7 @@
             // 
             // comboBoxPlayer3
             // 
+            this.comboBoxPlayer3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxPlayer3.FormattingEnabled = true;
             this.comboBoxPlayer3.Location = new System.Drawing.Point(218, 5);
             this.comboBoxPlayer3.Name = "comboBoxPlayer3";
@@ -207,6 +210,7 @@
             // 
             // comboBoxPlayer4
             // 
+            this.comboBoxPlayer4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxPlayer4.FormattingEnabled = true;
             this.comboBoxPlayer4.Location = new System.Drawing.Point(324, 5);
             this.comboBoxPlayer4.Name = "comboBoxPlayer4";
@@ -586,7 +590,7 @@
             this.Controls.Add(this.tabControlType);
             this.MinimumSize = new System.Drawing.Size(562, 450);
             this.Name = "MatchDetailFiller";
-            this.Text = "Bracket Match Filler v2.5.2";
+            this.Text = "Bracket Match Filler v2.5.3";
             this.tabControlType.ResumeLayout(false);
             this.tabPageSingles.ResumeLayout(false);
             this.tabPageSingles.PerformLayout();

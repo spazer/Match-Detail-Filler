@@ -142,7 +142,7 @@ namespace Match_Detail_Filler
             pmStageAutoComplete.AddRange(pmStages);
 
             sfvCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            sfvCharacterAutoCompleteList.AddRange(new string[] { "akuma", "alex", "balrog", "birdie", "cammy", "chun", "dhalsim", "fang", "guile", "ibuki", "juri", "karin", "ken", "kolin", "laura", "bison", "nash", "necalli", "mika", "rashid", "ryu", "urien", "vega", "zangief" });
+            sfvCharacterAutoCompleteList.AddRange(new string[] { "abigail", "akuma", "alex", "balrog", "birdie", "cammy", "chun", "dhalsim", "ed", "fang", "guile", "ibuki", "juri", "karin", "ken", "kolin", "laura", "bison", "nash", "necalli", "menat", "mika", "rashid", "ryu", "urien", "vega", "zangief", "zeku" });
 
             // Simulate selecting a tab so that the textboxes will generate for the first time
             tabControl_SelectedIndexChanged(tabControlType, new EventArgs());

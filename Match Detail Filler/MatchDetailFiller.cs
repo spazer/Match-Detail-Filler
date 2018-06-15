@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -44,21 +46,10 @@ namespace Match_Detail_Filler
         enum SinglesField { p1char, p2char, stage, p1score, p2score }
         enum DoublesField { t1p1char, t1p2char, t2p1char, t2p2char, stage, t1p1score, t1p2score, t2p1score, t2p2score }
 
-        AutoCompleteStringCollection meleeCharacterAutoCompleteList;
-        AutoCompleteStringCollection meleeStageAutoComplete;
-        AutoCompleteStringCollection ssbCharacterAutoCompleteList;
-        AutoCompleteStringCollection ssbStageAutoComplete;
-        AutoCompleteStringCollection wiiuCharacterAutoCompleteList;
-        AutoCompleteStringCollection wiiuStageAutoComplete;
-        AutoCompleteStringCollection pmCharacterAutoCompleteList;
-        AutoCompleteStringCollection pmStageAutoComplete;
-        AutoCompleteStringCollection sfvCharacterAutoCompleteList;
+        Dictionary<string, AutoCompleteStringCollection> stageAutocomplete = new Dictionary<string, AutoCompleteStringCollection>();
+        Dictionary<string, AutoCompleteStringCollection> characterAutocomplete = new Dictionary<string, AutoCompleteStringCollection>();
 
-        string[] meleeStages = new string[] { "Dream Land", "Final Destination", "Pokémon Stadium", "Battlefield", "Fountain of Dreams", "Yoshi's Story", "Brinstar", "Jungle Japes", "Kongo Jungle", "Rainbow Cruise", "Onett", "Mute City", "Corneria" };
-        string[] wiiuStages = new string[] { "Battlefield", "Final Destination", "Smashville", "Dream Land (64)", "Lylat Cruise", "Town and City", "Duck Hunt", "Castle Siege", "Delfino Plaza", "Halberd", "Umbra Clock Tower", "Pokémon Stadium 2",
-                                             "Ω Palutena's Temple", "Ω Gaur Plain", "Ω Orbital Gate Assault", "Ω Mushroom Kingdom U", "Ω Mario Galaxy", "Ω Kalos Pokémon League"};
-        string[] pmStages = new string[] { "Battlefield", "Smashville", "Pokémon Stadium 2", "Green Hill Zone", "Fountain of Dreams", "Yoshi's Story", "WarioWare, Inc.", "Wario Land", "Yoshi's Island", "Final Destination", "Dream Land", "Norfair", "Skyloft", "Skyworld", "Delfino's Secret", "Dracula's Castle", "Bowser's Castle", "Castle Siege", "Distant Planet", "Metal Cavern", "Rumble Falls", "Lylat Cruise" };
-        string[] ssbStages = new string[] { "Dream Land", "Hyrule Castle", "Peach's Castle", "Congo Jungle", "Planet Zebes", "Saffron City" };
+        Dictionary<string, string[]> stageList = new Dictionary<string, string[]>();
         string[] currentStageList;
 
         // A list of all vod textboxes
@@ -100,11 +91,38 @@ namespace Match_Detail_Filler
 
             // Initialize the combobox for game selection
             comboBoxGame.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxGame.Items.Add("Melee");
-            comboBoxGame.Items.Add("Wii U");
-            comboBoxGame.Items.Add("64");
-            comboBoxGame.Items.Add("Project M");
-            comboBoxGame.Items.Add("SFV");
+
+            // Get a list of all autocomplete files
+            Process currentProcess = Process.GetCurrentProcess();
+            string programPath = Path.GetDirectoryName(currentProcess.MainModule.FileName);
+            programPath = string.Concat(programPath, "\\Autocomplete");
+            List<string> autocompleteFiles = Directory.GetFiles(programPath, "*.txt", SearchOption.AllDirectories).ToList();
+
+            foreach (string filePath in autocompleteFiles)
+            {
+                if (Path.GetFileName(filePath).Contains(" characters"))
+                {
+                    string game = Path.GetFileNameWithoutExtension(filePath).Replace(" characters", "");
+                    comboBoxGame.Items.Add(game);
+                    characterAutocomplete.Add(game, new AutoCompleteStringCollection());
+
+                    string[] results = File.ReadAllText(filePath).Split(new string[] { "\r","\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    characterAutocomplete[game].AddRange(results);
+                }
+                else if (Path.GetFileName(filePath).Contains(" stages"))
+                {
+                    string game = Path.GetFileNameWithoutExtension(filePath).Replace(" stages", "");
+                    stageAutocomplete.Add(game, new AutoCompleteStringCollection());
+
+                    string[] results = File.ReadAllText(filePath).Split(new string[] { "\r","\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    stageAutocomplete[game].AddRange(results);
+                    stageList[game] = results;
+                }
+                else
+                {
+                    richTextBoxOutput.Text += "Skipped " + Path.GetFileName(filePath) + "\r\n";
+                }
+            }
 
             // Initialize player slots
             comboBoxPlayer1.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -115,34 +133,6 @@ namespace Match_Detail_Filler
             comboBoxPlayer3.Items.AddRange(playerSlots);
             comboBoxPlayer4.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxPlayer4.Items.AddRange(playerSlots);
-
-            // Create character and stage autocompletes for all games
-            meleeCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            meleeCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "puff", "cf", "ness", "peach", "bowser", "doc", "zelda", "sheik", "ganon", "yl", "falco", "mewtwo", "pichu", "ic", "game and watch", "marth", "roy" });
-
-            meleeStageAutoComplete = new AutoCompleteStringCollection();
-            meleeStageAutoComplete.AddRange(meleeStages);
-
-            ssbCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            ssbCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "yoshi", "dk", "link", "samus", "kirby", "fox", "pikachu", "jigglypuff", "puff", "cf", "ness" });
-
-            ssbStageAutoComplete = new AutoCompleteStringCollection();
-            ssbStageAutoComplete.AddRange(ssbStages);
-
-            wiiuCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            wiiuCharacterAutoCompleteList.AddRange(new string[] { "mario","luigi","peach","bowser","doc","yoshi","dk","diddy","link","zelda","sheik","ganon","toon link","samus","kirby","zss","mk","fox","dedede","falco","pikachu","jigglypuff","puff","mewtwo","charizard","lucario","cf","ness","lucas","marth","roy","ike","game and watch","pit","wario","olimar","rob","sonic","rosalina","bowser jr","greninja","robin","lucina","corrin","palutena","villager","dark pit","little mac","wii fit","duck hunt","shulk","mega man","pac-man","ryu","cloud","bayonetta","mii brawler","mii swordfighter","mii gunner" });
-
-            wiiuStageAutoComplete = new AutoCompleteStringCollection();
-            wiiuStageAutoComplete.AddRange(wiiuStages);
-
-            pmCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            pmCharacterAutoCompleteList.AddRange(new string[] { "mario", "luigi", "peach", "bowser", "yoshi", "dk", "diddy", "link", "zelda", "sheik", "ganon", "toon link", "tink", "samus", "zss", "kirby", "meta knight", "mk", "king dedede", "dedede", "fox", "falco", "wolf", "pikachu", "jigglypuff", "puff", "mewtwo", "squirtle", "ivysaur", "charizard", "lucario", "cf", "ness", "lucas", "ic", "marth", "roy", "ike", "mr game and watch", "gw", "pit", "wario", "olimar", "rob", "snake", "sonic" });
-
-            pmStageAutoComplete = new AutoCompleteStringCollection();
-            pmStageAutoComplete.AddRange(pmStages);
-
-            sfvCharacterAutoCompleteList = new AutoCompleteStringCollection();
-            sfvCharacterAutoCompleteList.AddRange(new string[] { "abigail", "akuma", "alex", "balrog", "birdie", "cammy", "chun", "dhalsim", "ed", "fang", "guile", "ibuki", "juri", "karin", "ken", "kolin", "laura", "bison", "nash", "necalli", "menat", "mika", "rashid", "ryu", "urien", "vega", "zangief", "zeku" });
 
             // Simulate selecting a tab so that the textboxes will generate for the first time
             tabControl_SelectedIndexChanged(tabControlType, new EventArgs());
@@ -525,111 +515,24 @@ namespace Match_Detail_Filler
                         match[(int)SinglesField.stage].Enabled = true;
                     }
 
-                    switch (comboBoxGame.SelectedItem.ToString())
+                    foreach (TextBox[] match in matchList)
                     {
-                        case "Melee":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], meleeCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], meleeCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.stage], meleeStageAutoComplete);
-                                currentStageList = meleeStages;
-                            }
-                            break;
-                        case "Wii U":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], wiiuCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], wiiuCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.stage], wiiuStageAutoComplete);
-                                currentStageList = wiiuStages;
-                            }
-                            break;
-                        case "64":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], ssbCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], ssbCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.stage], ssbStageAutoComplete);
-                                currentStageList = ssbStages;
-                            }
-                            break;
-                        case "Project M":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], pmCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], pmCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.stage], pmStageAutoComplete);
-                                currentStageList = pmStages;
-                            }
-                            break;
-                        case "SFV":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], sfvCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], sfvCharacterAutoCompleteList);
-
-                                match[(int)SinglesField.stage].Enabled = false;
-                            }
-                            break;
+                        SetTextboxAutoComplete(match[(int)SinglesField.p1char], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                        SetTextboxAutoComplete(match[(int)SinglesField.p2char], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                        SetTextboxAutoComplete(match[(int)SinglesField.stage], stageAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                        currentStageList = stageList[comboBoxGame.SelectedItem.ToString()];
                     }
                 }
                 else if (tabControlType.SelectedTab.Text == "Doubles")
                 {
-                    switch (comboBoxGame.SelectedItem.ToString())
+                    foreach (TextBox[] match in matchList)
                     {
-                        case "Melee":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)DoublesField.t1p1char], meleeCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t1p2char], meleeCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], meleeCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], meleeCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.stage], meleeStageAutoComplete);
-                                currentStageList = meleeStages;
-                            }
-                            break;
-                        case "Wii U":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)DoublesField.t1p1char], wiiuCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t1p2char], wiiuCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], wiiuCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], wiiuCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.stage], wiiuStageAutoComplete);
-                                currentStageList = wiiuStages;
-                            }
-                            break;
-                        case "64":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)DoublesField.t1p1char], ssbCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t1p2char], ssbCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], ssbCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], ssbCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.stage], ssbStageAutoComplete);
-                                currentStageList = ssbStages;
-                            }
-                            break;
-                        case "Project M":
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)DoublesField.t1p1char], pmCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t1p2char], pmCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], pmCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], pmCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)DoublesField.stage], pmStageAutoComplete);
-                                currentStageList = pmStages;
-                            }
-                            break;
-                        case "SFV":
-                            tabControlType.SelectTab(0);
-                            foreach (TextBox[] match in matchList)
-                            {
-                                SetTextboxAutoComplete(match[(int)SinglesField.p1char], sfvCharacterAutoCompleteList);
-                                SetTextboxAutoComplete(match[(int)SinglesField.p2char], sfvCharacterAutoCompleteList);
-                            }
-                            break;
+                        SetTextboxAutoComplete(match[(int)DoublesField.t1p1char], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                        SetTextboxAutoComplete(match[(int)DoublesField.t1p2char], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                        SetTextboxAutoComplete(match[(int)DoublesField.t2p1char], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                        SetTextboxAutoComplete(match[(int)DoublesField.t2p2char], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                        SetTextboxAutoComplete(match[(int)DoublesField.stage], stageAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                        currentStageList = stageList[comboBoxGame.SelectedItem.ToString()];
                     }
                 }
             }

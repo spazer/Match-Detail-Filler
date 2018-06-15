@@ -1,0 +1,100 @@
+bayonetta
+bowser
+bowser jr
+cf
+captain falcon
+charizard
+cloud
+corrin
+daisy
+dark pit
+diddy
+dk
+donkey kong
+doc
+dr mario
+dh
+dhd
+duck hunt
+duck hunt dog
+falco
+fox
+ganondorf
+greninja
+ic
+ics
+ice climbers
+ike
+inkling
+splat
+splatoon
+ivysaur
+puff
+jigglypuff
+dedede
+king dedede
+kirby
+link
+lucario
+mac
+little mac
+lucario
+lucas
+lucina
+luigi
+mario
+marth
+megaman
+mk
+metaknight
+mewtwo
+brawler
+mii brawler
+gunner
+mii gunner
+swordfighter
+mii swordfighter
+gw
+gaw
+game and watch
+mr game and watch
+mr game watch
+ness
+olimar
+pacman
+pac-man
+palutena
+peach
+pichu
+pikachu
+pit
+pt
+pokemon trainer
+pokémon trainer
+ridley
+rob
+robin
+rosalina
+roy
+ryu
+samus
+sheik
+shulk
+snake
+sonic
+squirtle
+tink
+tl
+toon link
+villager
+wario
+wolf
+wft
+wii fit
+yoshi
+yl
+young link
+zelda
+zss
+zero suit samus
+unknown

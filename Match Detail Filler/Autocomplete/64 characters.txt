@@ -1,0 +1,13 @@
+mario
+luigi
+yoshi
+dk
+link
+samus
+kirby
+fox
+pikachu
+jigglypuff
+puff
+cf
+ness

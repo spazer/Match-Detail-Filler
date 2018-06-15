@@ -1,0 +1,46 @@
+mario
+luigi
+peach
+bowser
+yoshi
+dk
+diddy
+link
+zelda
+sheik
+ganon
+toon link
+tink
+samus
+zss
+kirby
+meta knight
+mk
+king dedede
+dedede
+fox
+falco
+wolf
+pikachu
+jigglypuff
+puff
+mewtwo
+squirtle
+ivysaur
+charizard
+lucario
+cf
+ness
+lucas
+ic
+marth
+roy
+ike
+mr game and watch
+gw
+pit
+wario
+olimar
+rob
+snake
+sonic

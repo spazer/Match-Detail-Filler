@@ -1,43 +1,64 @@
+bayo
 bayonetta
 bowser
-bowser jr
+bowserjr
 cf
-captain falcon
+falcon
+captainfalcon
 charizard
+zard
 cloud
 corrin
+chrom
 daisy
-dark pit
+darkpit
+dp
+darksamus
+ds
 diddy
+diddykong
 dk
-donkey kong
+donkeykong
 doc
-dr mario
+drmario
 dh
 dhd
-duck hunt
-duck hunt dog
+duckhunt
+duckhuntdog
 falco
 fox
+ganon
 ganondorf
 greninja
 ic
 ics
-ice climbers
-ike
+iceclimbers
+incineroar
+isa
+isabelle
+ink
 inkling
 splat
 splatoon
+ike
+ivy
 ivysaur
+jiggly
+jiggs
 puff
 jigglypuff
+joker
+ken
+ddd
 dedede
-king dedede
+kingdedede
+kingkrool
+kkrool
+kkr
 kirby
 link
-lucario
 mac
-little mac
+littlemac
 lucario
 lucas
 lucina
@@ -49,28 +70,29 @@ mk
 metaknight
 mewtwo
 brawler
-mii brawler
+miibrawler
 gunner
-mii gunner
+miigunner
 swordfighter
-mii swordfighter
+miiswordfighter
 gw
 gaw
-game and watch
-mr game and watch
-mr game watch
+gameandwatch
+mrgameandwatch
+mrgamewatch
 ness
 olimar
 pacman
-pac-man
 palutena
 peach
 pichu
+pika
 pikachu
 pit
 pt
-pokemon trainer
-pokémon trainer
+pokemon
+pokemontrainer
+richter
 ridley
 rob
 robin
@@ -78,6 +100,7 @@ rosalina
 roy
 ryu
 samus
+simon
 sheik
 shulk
 snake
@@ -85,16 +108,17 @@ sonic
 squirtle
 tink
 tl
-toon link
+toonlink
 villager
 wario
-wolf
 wft
-wii fit
+wiifit
+wolf
 yoshi
 yl
-young link
+ylink
+younglink
 zelda
 zss
-zero suit samus
+zerosuitsamus
 unknown

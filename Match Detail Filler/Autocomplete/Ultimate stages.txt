@@ -1,5 +1,4 @@
 Final Destination
-Pokémon Stadium
 Battlefield
 Fountain of Dreams
 Yoshi's Story
@@ -20,3 +19,47 @@ Delfino Plaza
 Halberd
 Umbra Clock Tower
 Pokémon Stadium 2
+Unova Pokémon League
+Kalos Pokémon League
+Φ Fountain of Dreams
+Φ Yoshi's Story
+Φ Brinstar
+Φ Jungle Japes
+Φ Kongo Jungle
+Φ Rainbow Cruise
+Φ Onett
+Φ Mute City
+Φ Corneria
+Φ Smashville
+Φ Dream Land (64)
+Φ Lylat Cruise
+Φ Town and City
+Φ Duck Hunt
+Φ Castle Siege
+Φ Delfino Plaza
+Φ Halberd
+Φ Umbra Clock Tower
+Φ Pokémon Stadium 2
+Φ Unova Pokémon League
+Φ Kalos Pokémon League
+Ω Fountain of Dreams
+Ω Yoshi's Story
+Ω Brinstar
+Ω Jungle Japes
+Ω Kongo Jungle
+Ω Rainbow Cruise
+Ω Onett
+Ω Mute City
+Ω Corneria
+Ω Smashville
+Ω Dream Land (64)
+Ω Lylat Cruise
+Ω Town and City
+Ω Duck Hunt
+Ω Castle Siege
+Ω Delfino Plaza
+Ω Halberd
+Ω Umbra Clock Tower
+Ω Pokémon Stadium 2
+Ω Unova Pokémon League
+Ω Kalos Pokémon League

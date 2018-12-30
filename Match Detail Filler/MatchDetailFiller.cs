@@ -488,11 +488,21 @@ namespace Match_Detail_Filler
         {
             TextBox box = (TextBox)sender;
 
-            if (comboBoxGame.Text == "Wii U")
+            if (comboBoxGame.Text == "Wii U" || comboBoxGame.Text == "Ultimate")
             {
                 if (box.Text == "o " || box.Text == "O " || box.Text == "Omega " || box.Text == "omega ")
                 {
                     box.Text = "Ω ";
+                    box.SelectionStart = box.Text.Length;
+                }
+                else if (box.Text == "a " || box.Text == "A " || box.Text == "Alpha " || box.Text == "alpha ")
+                {
+                    box.Text = "α ";
+                    box.SelectionStart = box.Text.Length;
+                }
+                else if (box.Text == "p " || box.Text == "P " || box.Text == "Phi " || box.Text == "phi ")
+                {
+                    box.Text = "Φ ";
                     box.SelectionStart = box.Text.Length;
                 }
             }

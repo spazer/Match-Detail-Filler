@@ -36,21 +36,26 @@ namespace Match_Detail_Filler
         const string COMBOBOX_ENTRY_T2P2 = "T2 P2";
 
         static int SINGLES_WIDTH = 5;   // Number of textboxes in a row for the singles tab
-        static int SINGLES_HEIGHT = 5;  // Number of textboxes in a column for the singles tab
+        int games_to_display;  // Number of textboxes in a column
         static int DOUBLES_WIDTH = 9;   // Number of textboxes in a row for the doubles tab
-        static int DOUBLES_HEIGHT = 5;  // Number of textboxes in a column for the doubles tab
+        static int SQUAD_WIDTH_3 = 9;   // Number of textboxes in a row for the squad tab (3 characters)
+        static int SQUAD_WIDTH_5 = 13;   // Number of textboxes in a row for the squad tab (5 characters)
         static int TAB_NUMBER = 9;      // Where the generated textboxes' tab index should start being numbered from
 
         static string[] playerSlots = { COMBOBOX_ENTRY_T1P1, COMBOBOX_ENTRY_T1P2, COMBOBOX_ENTRY_T2P1, COMBOBOX_ENTRY_T2P2 };
 
         enum SinglesField { p1char, p2char, stage, p1score, p2score }
         enum DoublesField { t1p1char, t1p2char, t2p1char, t2p2char, stage, t1p1score, t1p2score, t2p1score, t2p2score }
+        enum SquadField3 { p1char1, p1char2, p1char3, p2char1, p2char2, p2char3, stage, p1score, p2score }
+        enum SquadField5 { p1char1, p1char2, p1char3, p1char4, p1char5, p2char1, p2char2, p2char3, p2char4, p2char5, stage, p1score, p2score }
 
         Dictionary<string, AutoCompleteStringCollection> stageAutocomplete = new Dictionary<string, AutoCompleteStringCollection>();
         Dictionary<string, AutoCompleteStringCollection> characterAutocomplete = new Dictionary<string, AutoCompleteStringCollection>();
 
         Dictionary<string, string[]> stageList = new Dictionary<string, string[]>();
         string[] currentStageList;
+        bool revertChange = false;
+        bool initialSetup = true;
 
         // A list of all vod textboxes
         List<TextBox> vodSetList = new List<TextBox>();
@@ -137,26 +142,31 @@ namespace Match_Detail_Filler
             // Simulate selecting a tab so that the textboxes will generate for the first time
             tabControl_SelectedIndexChanged(tabControlType, new EventArgs());
 
-            // Set the game
+            // Set the default game
             comboBoxGame.SelectedItem = "Melee";
 
-            // Set the player slots
+            // Set the default game count
+            comboBoxGameCount.SelectedItem = "5";
+
+            // Set the default character count for squad
+            comboBoxSquadCharNumber.SelectedItem = "3";
+
+            // Set the player slots for doubles stuff
             comboBoxPlayer1.SelectedItem = COMBOBOX_ENTRY_T1P1;
             comboBoxPlayer2.SelectedItem = COMBOBOX_ENTRY_T1P2;
             comboBoxPlayer3.SelectedItem = COMBOBOX_ENTRY_T2P1;
             comboBoxPlayer4.SelectedItem = COMBOBOX_ENTRY_T2P2;
-
             t1p1.player = comboBoxPlayer1;
             t1p2.player = comboBoxPlayer2;
             t2p1.player = comboBoxPlayer3;
             t2p2.player = comboBoxPlayer4;
-
             doublesPlayerList.Add(t1p1);
             doublesPlayerList.Add(t1p2);
             doublesPlayerList.Add(t2p1);
             doublesPlayerList.Add(t2p2);
-
             AddEventsToPlayerComboBoxes();
+
+            initialSetup = false;
         }
 
         #region Buttons
@@ -224,7 +234,7 @@ namespace Match_Detail_Filler
                         }
                     }
                 }
-                else
+                else if (tabControlType.SelectedTab.Text == "Doubles")
                 {
                     if (match[(int)DoublesField.stage].Text != string.Empty)
                     {
@@ -275,6 +285,69 @@ namespace Match_Detail_Filler
                         }
 
                         output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)DoublesField.stage].Text + "\r\n";
+                    }
+                }
+                else if (tabControlType.SelectedTab.Text == "Squad")
+                {
+                    if (comboBoxSquadCharNumber.SelectedItem.ToString() == "3")
+                    {
+                        if (match[(int)SquadField3.stage].Text != string.Empty)
+                        {
+                            output += "|" + textBoxMatch.Text + "p1char" + matchNumber + "=" + match[(int)SquadField3.p1char1].Text + "," +
+                                      match[(int)SquadField3.p1char2].Text + "," + match[(int)SquadField3.p1char3].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p2char" + matchNumber + "=" + match[(int)SquadField3.p2char1].Text + "," +
+                                      match[(int)SquadField3.p2char2].Text + "," + match[(int)SquadField3.p2char3].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p1stock" + matchNumber + "=" + match[(int)SquadField3.p1score].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p2stock" + matchNumber + "=" + match[(int)SquadField3.p2score].Text + " ";
+
+                            if (match[(int)SquadField3.p1score].Text != string.Empty && match[(int)SinglesField.p2score].Text != string.Empty)
+                            {
+                                if (int.Parse(match[(int)SquadField3.p1score].Text) > int.Parse(match[(int)SquadField3.p2score].Text))
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                                }
+                                else
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                                }
+                            }
+                            else
+                            {
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
+                            }
+                            output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)SquadField3.stage].Text + "\r\n";
+                        }
+                    }
+                    else if (comboBoxSquadCharNumber.SelectedItem.ToString() == "5")
+                    {
+                        if (match[(int)SquadField5.stage].Text != string.Empty)
+                        {
+                            output += "|" + textBoxMatch.Text + "p1char" + matchNumber + "=" + match[(int)SquadField5.p1char1].Text + "," +
+                                      match[(int)SquadField5.p1char2].Text + "," + match[(int)SquadField5.p1char3].Text + "," +
+                                      match[(int)SquadField5.p1char4].Text + "," + match[(int)SquadField5.p1char5].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p2char" + matchNumber + "=" + match[(int)SquadField5.p2char1].Text + "," +
+                                      match[(int)SquadField5.p2char2].Text + "," + match[(int)SquadField5.p2char3].Text + "," +
+                                      match[(int)SquadField5.p2char4].Text + "," + match[(int)SquadField5.p2char5].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p1stock" + matchNumber + "=" + match[(int)SquadField5.p1score].Text + " ";
+                            output += "|" + textBoxMatch.Text + "p2stock" + matchNumber + "=" + match[(int)SquadField5.p2score].Text + " ";
+
+                            if (match[(int)SquadField5.p1score].Text != string.Empty && match[(int)SquadField5.p2score].Text != string.Empty)
+                            {
+                                if (int.Parse(match[(int)SquadField5.p1score].Text) > int.Parse(match[(int)SquadField5.p2score].Text))
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=1 ";
+                                }
+                                else
+                                {
+                                    output += "|" + textBoxMatch.Text + "win" + matchNumber + "=2 ";
+                                }
+                            }
+                            else
+                            {
+                                output += "|" + textBoxMatch.Text + "win" + matchNumber + "= ";
+                            }
+                            output += "|" + textBoxMatch.Text + "stage" + matchNumber + "=" + match[(int)SquadField5.stage].Text + "\r\n";
+                        }
                     }
                 }
 
@@ -545,6 +618,38 @@ namespace Match_Detail_Filler
                         currentStageList = stageList[comboBoxGame.SelectedItem.ToString()];
                     }
                 }
+                else if(tabControlType.SelectedTab.Text == "Squad")
+                {
+                    foreach (TextBox[] match in matchList)
+                    {
+                        if (comboBoxSquadCharNumber.SelectedItem.ToString() == "3")
+                        {
+                            SetTextboxAutoComplete(match[(int)SquadField3.p1char1], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField3.p1char2], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField3.p1char3], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField3.p2char1], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField3.p2char2], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField3.p2char3], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField3.stage], stageAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            currentStageList = stageList[comboBoxGame.SelectedItem.ToString()];
+                        }
+                        else if (comboBoxSquadCharNumber.SelectedItem.ToString() == "5")
+                        {
+                            SetTextboxAutoComplete(match[(int)SquadField5.p1char1], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p1char2], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p1char3], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p1char4], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p1char5], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p2char1], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p2char2], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p2char3], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p2char4], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.p2char5], characterAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            SetTextboxAutoComplete(match[(int)SquadField5.stage], stageAutocomplete[comboBoxGame.SelectedItem.ToString()]);
+                            currentStageList = stageList[comboBoxGame.SelectedItem.ToString()];
+                        }
+                    }
+                }
             }
         }
 
@@ -605,6 +710,34 @@ namespace Match_Detail_Filler
                         row[i].Dispose();
                     }
                 }
+                else if (row.Length == SQUAD_WIDTH_3)
+                {
+                    for (int i = 0; i < row.Length; i++)
+                    {
+                        // Remove stage auto-capitalization event
+                        if (i == (int)DoublesField.stage)
+                        {
+                            row[i].Leave -= new EventHandler(textBoxStage_Leave);
+                        }
+
+                        tabs.Controls.Remove(row[i]);
+                        row[i].Dispose();
+                    }
+                }
+                else if (row.Length == SQUAD_WIDTH_5)
+                {
+                    for (int i = 0; i < row.Length; i++)
+                    {
+                        // Remove stage auto-capitalization event
+                        if (i == (int)DoublesField.stage)
+                        {
+                            row[i].Leave -= new EventHandler(textBoxStage_Leave);
+                        }
+
+                        tabs.Controls.Remove(row[i]);
+                        row[i].Dispose();
+                    }
+                }
             }
 
             matchList.Clear();
@@ -613,14 +746,15 @@ namespace Match_Detail_Filler
             if (tabControlType.SelectedTab.Text == "Singles")
             {
                 // Set form width
-                this.MinimumSize = new Size(562, 480);
+                this.MinimumSize = new Size(562, 480 + (games_to_display - 5)*26);
+                this.Height = 480 + (games_to_display - 5) * 26;
                 this.Width = 562;
 
                 // Set tab box size
-                this.tabControlType.Size = new System.Drawing.Size(520, 190);
+                this.tabControlType.Size = new System.Drawing.Size(520, 190 + (games_to_display - 5) * 26);
                 
                 // Set base textbox properties
-                for (int i = 0; i < SINGLES_HEIGHT; i++)
+                for (int i = 0; i < games_to_display; i++)
                 {
                     TextBox[] newTextBoxArray = new TextBox[SINGLES_WIDTH];
                     int lastLeft = 0;
@@ -680,14 +814,15 @@ namespace Match_Detail_Filler
                     }
                 }
             }
-            else
+            else if (tabControlType.SelectedTab.Text == "Doubles")
             {
                 // Set form width
                 this.Width = 802;
-                this.MinimumSize = new Size(802, 480);
+                this.Height = 510 + (games_to_display - 5) * 26;
+                this.MinimumSize = new Size(802, 510 + (games_to_display - 5) * 26);
 
                 // Set box size
-                this.tabControlType.Size = new System.Drawing.Size(760, 220);
+                this.tabControlType.Size = new System.Drawing.Size(760, 220 + (games_to_display - 5) * 26);
 
                 // Clear all residual doubles textbox associations
                 t1p1.Clear();
@@ -696,7 +831,7 @@ namespace Match_Detail_Filler
                 t2p2.Clear();
 
                 // Set base textbox properties
-                for (int i = 0; i < DOUBLES_HEIGHT; i++)
+                for (int i = 0; i < games_to_display; i++)
                 {
                     TextBox[] newTextBoxArray = new TextBox[DOUBLES_WIDTH];
                     int lastLeft = 0;
@@ -759,7 +894,101 @@ namespace Match_Detail_Filler
                     }
                 }
             }
+            else if (tabControlType.SelectedTab.Text == "Squad")
+            {
+                // Set form width
+                this.MinimumSize = new Size(802, 480 + (games_to_display - 5) * 26);
+                this.Height = 480 + (games_to_display - 5) * 26;
+                this.Width = 802;
 
+                // Set tab box size
+                this.tabControlType.Size = new System.Drawing.Size(760, 190 + (games_to_display - 5) * 26);
+
+                int textboxesInRow;
+                if (comboBoxSquadCharNumber.SelectedItem.ToString() == "3")
+                {
+                    textboxesInRow = SQUAD_WIDTH_3;
+                }
+                else
+                {
+                    textboxesInRow = SQUAD_WIDTH_5;
+                }
+
+                // Set base textbox properties
+                for (int i = 0; i < games_to_display; i++)
+                {
+                    TextBox[] newTextBoxArray;
+
+                    if (comboBoxSquadCharNumber.SelectedItem.ToString() == "3")
+                    {
+                        textboxesInRow = SQUAD_WIDTH_3;
+                        newTextBoxArray = new TextBox[SQUAD_WIDTH_3];
+                    }
+                    else
+                    {
+                        textboxesInRow = SQUAD_WIDTH_5;
+                        newTextBoxArray = new TextBox[SQUAD_WIDTH_5];
+                    }
+
+                    int lastLeft = 0;
+                    int textboxesToDraw = Int32.Parse(comboBoxSquadCharNumber.SelectedItem.ToString());
+      
+                    for (int j = 0; j < textboxesInRow; j++)
+                    {
+                        TextBox newTextBox = new TextBox();
+
+                        // Set auto-capitalization for stages
+                        if (((textboxesInRow == SQUAD_WIDTH_3) && j == (int)SquadField3.stage) || 
+                            ((textboxesInRow == SQUAD_WIDTH_5) && j == (int)SquadField5.stage))
+                        {
+                            newTextBox.Leave += new EventHandler(textBoxStage_Leave);
+                            newTextBox.KeyUp += new KeyEventHandler(textBoxStage_KeyUp);
+                        }
+
+                        // Score/stock textboxes need to be smaller
+                        if (((textboxesInRow == SQUAD_WIDTH_3) && (j == (int)SquadField3.p1score || j == (int)SquadField3.p2score)) ||
+                            ((textboxesInRow == SQUAD_WIDTH_5) && (j == (int)SquadField5.p1score || j == (int)SquadField5.p2score)))
+                        {
+                            newTextBox.Width = 47;
+                            newTextBox.Left = lastLeft + 6;
+                        }
+                        else if (((textboxesInRow == SQUAD_WIDTH_3) && j == (int)SquadField3.stage) ||
+                            ((textboxesInRow == SQUAD_WIDTH_5) && j == (int)SquadField5.stage))
+                        {
+                            newTextBox.Width = 100;
+                            newTextBox.Left = lastLeft + 6;
+                        }
+                        else
+                        {
+                            newTextBox.Width = 60;
+                            newTextBox.Left = lastLeft + 6;
+                        }
+
+                        newTextBox.Height = 20;
+                        newTextBox.Top = 32 + 26 * i;
+
+                        // Keep track of the last textbox position
+                        lastLeft = newTextBox.Left + newTextBox.Width;
+
+                        newTextBoxArray[j] = newTextBox;
+                        tabPageSquad.Controls.Add(newTextBox);
+                    }
+
+                    matchList.Add(newTextBoxArray);
+                }
+
+                // Set the tab order for easy tab navigation
+                int tabNumber = TAB_NUMBER;
+                foreach (TextBox[] match in matchList)
+                {
+                    for (int i = 0; i < textboxesInRow; i++)
+                    {
+                        match[i].TabIndex = tabNumber;
+                        tabNumber++;
+                    }
+                }
+            }
+            
             // Add autocomplete for all relevant textboxes
             comboBoxGame_SelectedValueChanged(comboBoxGame, new EventArgs());
 
@@ -930,6 +1159,42 @@ namespace Match_Detail_Filler
                 case DoublesField.t2p2score:
                     t2p2.scoreList.Add(box);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Changes the max number of games you can input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboBoxGameCount_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // If this function is called when reverting a change, don't do anything
+            if (revertChange)
+            {
+                revertChange = false;
+                return;
+            }
+
+            if (!initialSetup)
+            {
+                DialogResult result = MessageBox.Show("Change the number of games?", "Confirmation", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    games_to_display = Int32.Parse(comboBoxGameCount.SelectedItem.ToString());
+                    tabControl_SelectedIndexChanged(tabControlType, e);
+                }
+                else
+                {
+
+                    revertChange = true;
+                    comboBoxGameCount.SelectedItem = games_to_display.ToString();
+                }
+            }
+            else
+            {
+                games_to_display = Int32.Parse(comboBoxGameCount.SelectedItem.ToString());
+                tabControl_SelectedIndexChanged(tabControlType, e);
             }
         }
     }

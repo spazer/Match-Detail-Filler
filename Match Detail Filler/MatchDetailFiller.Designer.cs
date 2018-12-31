@@ -58,6 +58,12 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.tabPageSquad = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.textBoxDate = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.tabControlVod = new System.Windows.Forms.TabControl();
@@ -79,9 +85,13 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.checkBoxDetails = new System.Windows.Forms.CheckBox();
+            this.comboBoxGameCount = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.comboBoxSquadCharNumber = new System.Windows.Forms.ComboBox();
             this.tabControlType.SuspendLayout();
             this.tabPageSingles.SuspendLayout();
             this.tabPageDoubles.SuspendLayout();
+            this.tabPageSquad.SuspendLayout();
             this.tabControlVod.SuspendLayout();
             this.tabPageVodSingle.SuspendLayout();
             this.tabPageVodMultiple.SuspendLayout();
@@ -107,8 +117,7 @@
             // 
             // richTextBoxOutput
             // 
-            this.richTextBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.richTextBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxOutput.Location = new System.Drawing.Point(15, 321);
             this.richTextBoxOutput.Name = "richTextBoxOutput";
@@ -239,10 +248,12 @@
             // 
             // tabControlType
             // 
-            this.tabControlType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControlType.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlType.Controls.Add(this.tabPageSingles);
             this.tabControlType.Controls.Add(this.tabPageDoubles);
+            this.tabControlType.Controls.Add(this.tabPageSquad);
             this.tabControlType.Location = new System.Drawing.Point(15, 95);
             this.tabControlType.Name = "tabControlType";
             this.tabControlType.SelectedIndex = 0;
@@ -375,6 +386,63 @@
             this.label9.TabIndex = 152;
             this.label9.Text = "            Stage";
             // 
+            // tabPageSquad
+            // 
+            this.tabPageSquad.Controls.Add(this.textBox1);
+            this.tabPageSquad.Controls.Add(this.comboBoxSquadCharNumber);
+            this.tabPageSquad.Controls.Add(this.textBox2);
+            this.tabPageSquad.Controls.Add(this.label22);
+            this.tabPageSquad.Controls.Add(this.label23);
+            this.tabPageSquad.Controls.Add(this.label24);
+            this.tabPageSquad.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSquad.Name = "tabPageSquad";
+            this.tabPageSquad.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSquad.Size = new System.Drawing.Size(751, 164);
+            this.tabPageSquad.TabIndex = 2;
+            this.tabPageSquad.Text = "Squad";
+            this.tabPageSquad.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(112, 6);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 102;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(6, 6);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 101;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(565, 13);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(66, 13);
+            this.label22.TabIndex = 103;
+            this.label22.Text = "P2 chars left";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(498, 13);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(66, 13);
+            this.label23.TabIndex = 104;
+            this.label23.Text = "P1 chars left";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(398, 13);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(71, 13);
+            this.label24.TabIndex = 105;
+            this.label24.Text = "            Stage";
+            // 
             // textBoxDate
             // 
             this.textBoxDate.Location = new System.Drawing.Point(15, 69);
@@ -398,7 +466,7 @@
             this.tabControlVod.Location = new System.Drawing.Point(121, 10);
             this.tabControlVod.Name = "tabControlVod";
             this.tabControlVod.SelectedIndex = 0;
-            this.tabControlVod.Size = new System.Drawing.Size(393, 93);
+            this.tabControlVod.Size = new System.Drawing.Size(393, 86);
             this.tabControlVod.TabIndex = 103;
             // 
             // tabPageVodSingle
@@ -410,7 +478,7 @@
             this.tabPageVodSingle.Location = new System.Drawing.Point(4, 22);
             this.tabPageVodSingle.Name = "tabPageVodSingle";
             this.tabPageVodSingle.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageVodSingle.Size = new System.Drawing.Size(385, 67);
+            this.tabPageVodSingle.Size = new System.Drawing.Size(385, 60);
             this.tabPageVodSingle.TabIndex = 0;
             this.tabPageVodSingle.Text = "VODs by set";
             this.tabPageVodSingle.UseVisualStyleBackColor = true;
@@ -457,7 +525,7 @@
             this.tabPageVodMultiple.Location = new System.Drawing.Point(4, 22);
             this.tabPageVodMultiple.Name = "tabPageVodMultiple";
             this.tabPageVodMultiple.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageVodMultiple.Size = new System.Drawing.Size(385, 67);
+            this.tabPageVodMultiple.Size = new System.Drawing.Size(385, 60);
             this.tabPageVodMultiple.TabIndex = 1;
             this.tabPageVodMultiple.Text = "VODs by game";
             this.tabPageVodMultiple.UseVisualStyleBackColor = true;
@@ -570,11 +638,53 @@
             this.checkBoxDetails.Text = "Always include details";
             this.checkBoxDetails.UseVisualStyleBackColor = true;
             // 
+            // comboBoxGameCount
+            // 
+            this.comboBoxGameCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxGameCount.FormattingEnabled = true;
+            this.comboBoxGameCount.Items.AddRange(new object[] {
+            "5",
+            "7",
+            "9",
+            "11",
+            "13",
+            "15"});
+            this.comboBoxGameCount.Location = new System.Drawing.Point(62, 291);
+            this.comboBoxGameCount.Name = "comboBoxGameCount";
+            this.comboBoxGameCount.Size = new System.Drawing.Size(53, 21);
+            this.comboBoxGameCount.TabIndex = 105;
+            this.comboBoxGameCount.SelectedIndexChanged += new System.EventHandler(this.comboBoxGameCount_SelectedIndexChanged);
+            // 
+            // label25
+            // 
+            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(16, 295);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(40, 13);
+            this.label25.TabIndex = 106;
+            this.label25.Text = "Best of";
+            // 
+            // comboBoxSquadCharNumber
+            // 
+            this.comboBoxSquadCharNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxSquadCharNumber.FormattingEnabled = true;
+            this.comboBoxSquadCharNumber.Items.AddRange(new object[] {
+            "3",
+            "5"});
+            this.comboBoxSquadCharNumber.Location = new System.Drawing.Point(692, 6);
+            this.comboBoxSquadCharNumber.Name = "comboBoxSquadCharNumber";
+            this.comboBoxSquadCharNumber.Size = new System.Drawing.Size(53, 21);
+            this.comboBoxSquadCharNumber.TabIndex = 105;
+            this.comboBoxSquadCharNumber.SelectedIndexChanged += new System.EventHandler(this.comboBoxGameCount_SelectedIndexChanged);
+            // 
             // MatchDetailFiller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(786, 441);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.comboBoxGameCount);
             this.Controls.Add(this.checkBoxDetails);
             this.Controls.Add(this.buttonTrim);
             this.Controls.Add(this.tabControlVod);
@@ -590,12 +700,14 @@
             this.Controls.Add(this.tabControlType);
             this.MinimumSize = new System.Drawing.Size(562, 450);
             this.Name = "MatchDetailFiller";
-            this.Text = "Bracket Match Filler v3.0.1";
+            this.Text = "Bracket Match Filler v3.1.0";
             this.tabControlType.ResumeLayout(false);
             this.tabPageSingles.ResumeLayout(false);
             this.tabPageSingles.PerformLayout();
             this.tabPageDoubles.ResumeLayout(false);
             this.tabPageDoubles.PerformLayout();
+            this.tabPageSquad.ResumeLayout(false);
+            this.tabPageSquad.PerformLayout();
             this.tabControlVod.ResumeLayout(false);
             this.tabPageVodSingle.ResumeLayout(false);
             this.tabPageVodSingle.PerformLayout();
@@ -660,6 +772,15 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TabPage tabPageSquad;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ComboBox comboBoxGameCount;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox comboBoxSquadCharNumber;
     }
 }
 

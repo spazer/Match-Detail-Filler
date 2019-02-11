@@ -557,7 +557,7 @@ namespace Match_Detail_Filler
         }
 
         // Use the Ω symbol for Wii U Omega stages
-        private void textBoxStage_KeyUp(object sender, EventArgs e)
+        private void textBoxStage_KeyPress(object sender, EventArgs e)
         {
             TextBox box = (TextBox)sender;
 
@@ -775,7 +775,7 @@ namespace Match_Detail_Filler
                         if (j == (int)SinglesField.stage)
                         {
                             newTextBox.Leave += new EventHandler(textBoxStage_Leave);
-                            newTextBox.KeyUp += new KeyEventHandler(textBoxStage_KeyUp);
+                            newTextBox.TextChanged += new EventHandler(textBoxStage_KeyPress);
                         }
 
                         // Score/stock textboxes need to be smaller
@@ -852,7 +852,7 @@ namespace Match_Detail_Filler
                         if (j == (int)DoublesField.stage)
                         {
                             newTextBox.Leave += new EventHandler(textBoxStage_Leave);
-                            newTextBox.KeyUp += new KeyEventHandler(textBoxStage_KeyUp);
+                            newTextBox.TextChanged += new EventHandler(textBoxStage_KeyPress);
                         }
 
                         // Score/stock textboxes need to be smaller
@@ -942,7 +942,7 @@ namespace Match_Detail_Filler
                             ((textboxesInRow == SQUAD_WIDTH_5) && j == (int)SquadField5.stage))
                         {
                             newTextBox.Leave += new EventHandler(textBoxStage_Leave);
-                            newTextBox.KeyUp += new KeyEventHandler(textBoxStage_KeyUp);
+                            newTextBox.TextChanged += new EventHandler(textBoxStage_KeyPress);
                         }
 
                         // Score/stock textboxes need to be smaller

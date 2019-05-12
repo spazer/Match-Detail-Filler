@@ -51,6 +51,8 @@ namespace Match_Detail_Filler
 
         Dictionary<string, AutoCompleteStringCollection> stageAutocomplete = new Dictionary<string, AutoCompleteStringCollection>();
         Dictionary<string, AutoCompleteStringCollection> characterAutocomplete = new Dictionary<string, AutoCompleteStringCollection>();
+        Dictionary<string, Dictionary<string, string>> stageShortcuts = new Dictionary<string, Dictionary<string, string>>();
+        Dictionary<string, Dictionary<string, string>> characterShortcuts = new Dictionary<string, Dictionary<string, string>>();
 
         Dictionary<string, string[]> stageList = new Dictionary<string, string[]>();
         string[] currentStageList;
@@ -103,6 +105,7 @@ namespace Match_Detail_Filler
             programPath = string.Concat(programPath, "\\Autocomplete");
             List<string> autocompleteFiles = Directory.GetFiles(programPath, "*.txt", SearchOption.AllDirectories).ToList();
 
+            // Collect autocomplete entries from files
             foreach (string filePath in autocompleteFiles)
             {
                 if (Path.GetFileName(filePath).Contains(" characters"))
@@ -110,16 +113,50 @@ namespace Match_Detail_Filler
                     string game = Path.GetFileNameWithoutExtension(filePath).Replace(" characters", "");
                     comboBoxGame.Items.Add(game);
                     characterAutocomplete.Add(game, new AutoCompleteStringCollection());
+                    characterShortcuts.Add(game, new Dictionary<string, string>());
 
                     string[] results = File.ReadAllText(filePath).Split(new string[] { "\r","\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // Collect shortcuts per character
+                    for (int i = 0; i < results.Count(); i++)
+                    {
+                        if (results[i].Contains("<REPLACE>"))
+                        {
+                            int index = results[i].IndexOf("<REPLACE>");
+
+                            // Add the replacement string to the shortcut list
+                            characterShortcuts[game].Add(results[i].Substring(index + 9), results[i].Substring(0, index));
+
+                            // Remove the replacement string from the autocomplete entry
+                            results[i] = results[i].Substring(0, index);
+                        }
+                    }
+
                     characterAutocomplete[game].AddRange(results);
                 }
                 else if (Path.GetFileName(filePath).Contains(" stages"))
                 {
                     string game = Path.GetFileNameWithoutExtension(filePath).Replace(" stages", "");
                     stageAutocomplete.Add(game, new AutoCompleteStringCollection());
+                    stageShortcuts.Add(game, new Dictionary<string, string>());
 
                     string[] results = File.ReadAllText(filePath).Split(new string[] { "\r","\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // Collect shortcuts per stage
+                    for (int i = 0; i < results.Count(); i++)
+                    {
+                        if (results[i].Contains("<REPLACE>"))
+                        {
+                            int index = results[i].IndexOf("<REPLACE>");
+
+                            // Add the replacement string to the shortcut list
+                            stageShortcuts[game].Add(results[i].Substring(index + 9), results[i].Substring(0, index));
+
+                            // Remove the replacement string from the autocomplete entry
+                            results[i] = results[i].Substring(0, index);
+                        }
+                    }
+
                     stageAutocomplete[game].AddRange(results);
                     stageList[game] = results;
                 }
@@ -579,6 +616,25 @@ namespace Match_Detail_Filler
                     box.SelectionStart = box.Text.Length;
                 }
             }
+
+            // Parse shortcuts
+            if (stageShortcuts[comboBoxGame.Text].ContainsKey(box.Text))
+            {
+                box.Text = stageShortcuts[comboBoxGame.Text][box.Text];
+                box.SelectionStart = box.Text.Length;
+            }
+        }
+
+        private void textBoxChar_KeyPress(object sender, EventArgs e)
+        {
+            TextBox box = (TextBox)sender;
+
+            // Parse shortcuts
+            if (characterShortcuts[comboBoxGame.Text].ContainsKey(box.Text))
+            {
+                box.Text = characterShortcuts[comboBoxGame.Text][box.Text];
+                box.SelectionStart = box.Text.Length;
+            }
         }
         #endregion
 
@@ -768,6 +824,7 @@ namespace Match_Detail_Filler
                             if (i == 0)
                             {
                                 newTextBox.Leave += new EventHandler(textBoxChar_Leave);
+                                newTextBox.TextChanged += new EventHandler(textBoxChar_KeyPress);
                             }
                         }
 
@@ -845,6 +902,7 @@ namespace Match_Detail_Filler
                             if (i == 0)
                             {
                                 newTextBox.Leave += new EventHandler(textBoxChar_Leave);
+                                newTextBox.TextChanged += new EventHandler(textBoxChar_KeyPress);
                             }
                         }
 

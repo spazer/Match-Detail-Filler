@@ -43,7 +43,7 @@ Kalos Pokémon League
 Φ Unova Pokémon League
 Φ Kalos Pokémon League
 Ω Fountain of Dreams
-Ω Yoshi's Story
+Ω Yoshi's Story<REPLACE>pys
 Ω Brinstar
 Ω Jungle Japes
 Ω Kongo Jungle
@@ -60,7 +60,8 @@ Kalos Pokémon League
 Ω Delfino Plaza
 Ω Halberd
 Ω Umbra Clock Tower
-Ω Pokémon Stadium 2
+Ω Pokémon Stadium<REPLACE>pp1
+Ω Pokémon Stadium 2<REPLACE>pp2
 Ω Unova Pokémon League
 Ω Kalos Pokémon League
 Φ Yoshi's Island

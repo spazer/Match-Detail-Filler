@@ -11,7 +11,7 @@ chrom
 daisy
 darkpit
 dp
-darksamus
+darksamus<REPLACE>ds
 ds
 diddy
 diddykong
@@ -39,8 +39,6 @@ inkling
 splat
 splatoon
 ike
-jiggly
-jiggs
 puff
 jigglypuff
 joker
@@ -56,8 +54,8 @@ link
 mac
 littlemac
 lucario
-lucas
-lucina
+lucas<REPLACE>lcs
+lucina<REPLACE>lna
 luigi
 mario
 marth
@@ -82,7 +80,6 @@ pacman
 palutena
 peach
 pichu
-pika
 pikachu
 pit
 pt

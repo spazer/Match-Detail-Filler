@@ -5,8 +5,6 @@ bowserjr
 cf
 falcon
 captainfalcon
-charizard
-zard
 cloud
 corrin
 chrom
@@ -41,8 +39,6 @@ inkling
 splat
 splatoon
 ike
-ivy
-ivysaur
 jiggly
 jiggs
 puff
@@ -105,7 +101,6 @@ sheik
 shulk
 snake
 sonic
-squirtle
 tink
 tl
 toonlink

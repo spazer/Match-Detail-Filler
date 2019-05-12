@@ -749,8 +749,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBoxDate;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabControl tabControlVod;

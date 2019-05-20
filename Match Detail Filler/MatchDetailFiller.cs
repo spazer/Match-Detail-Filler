@@ -78,6 +78,10 @@ namespace Match_Detail_Filler
         {
             InitializeComponent();
 
+            // Display version
+            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            this.Text = "Bracket Match Filler v" + $"{version}";
+
             // Add all vod textboxes to vodList
             vodSetList.Add(textBoxVodSet1);
             vodSetList.Add(textBoxVodSet2);
